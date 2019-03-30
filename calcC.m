@@ -1,4 +1,5 @@
 function C = calcC(stock)
+%example on git
 C = zeros(size(stock,2),size(stock,2));
 for i=1:size(stock,2)
     for j=1:size(stock,2)
