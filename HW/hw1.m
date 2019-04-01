@@ -45,3 +45,23 @@ end
 
 
 %% Exercise Two
+
+
+for i=[1:5]
+    for j=[1:9]
+        [x1 x2 x3 x4]= data_years{1,i}{:,j}
+        
+        
+    end
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+end
