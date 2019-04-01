@@ -3,6 +3,8 @@ load('hw1_data.mat');
 
 %% Exercise One
 
+
+
 corr = cell(1,5);
 for i=1:5
     curr_data = cell2mat(data_years(i));
@@ -36,6 +38,7 @@ for i=1:3
     end
     corr2{i} = corr_asset;
 end
+
 
 
 
