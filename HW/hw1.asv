@@ -1,0 +1,16 @@
+load(hw1_data.mat);
+
+
+%% Exercise One
+
+
+for i=1:3
+    currGroup = data_group(i);
+    for j = 1:3
+        q1 = calcQuarter(cell2mat(data_group(i)));
+end
+
+
+
+
+%% Exercise Two
