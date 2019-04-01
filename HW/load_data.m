@@ -29,9 +29,6 @@ data_16 = zeros(tradingDays,9);
 data_17 = zeros(tradingDays-1,9);
 data_18 = zeros(tradingDays-1,9);
 
-getDataForYear(MSFT, MSFT_years,2018)
-
-
 data_14(:,1) = getDataForYear(VFINX, VFINX_years, 2014);
 data_14(:,2) = getDataForYear(VBMFX, VBMFX_years, 2014);
 data_14(:,3) = getDataForYear(VGSLX, VGSLX_years, 2014);
@@ -88,4 +85,4 @@ B ={data_14(:,4:6),data_15(:,4:6),data_16(:,4:6),data_17(:,4:6),data_18(:,4:6)};
 C ={data_14(:,7:9),data_15(:,7:9),data_16(:,7:9),data_17(:,7:9),data_18(:,7:9)};
 data_group = {A, B, C};
 
-%clearvars -except data_years data_group
+clearvars -except data_years data_group
