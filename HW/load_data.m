@@ -3,14 +3,14 @@ clear all;
 "VFINX loaded"
 [VBMFX_years, VBMFX] = getDataFromFile('HW_1_data/VBMFX.csv');
 "VBMFX loaded"
-[VGSLX_years, VGSLX] = getDataFromFile('HW_1_data/.csv');
+[VGSLX_years, VGSLX] = getDataFromFile('HW_1_data/VGSLX.csv');
 "VGSLX loaded"
 
-[VGTSX_years, VGTSX] = getDataFromFile('HW_1_data/VFINX.csv');
+[VGTSX_years, VGTSX] = getDataFromFile('HW_1_data/VBLTX.csv');
 "VGTSX loaded"
-[VBLTX_years, VBLTX] = getDataFromFile('HW_1_data/VFINX.csv');
+[VBLTX_years, VBLTX] = getDataFromFile('HW_1_data/VEIEX.csv');
 "VBLTX loaded"
-[VTIBX_years, VTIBX] = getDataFromFile('HW_1_data/VFINX.csv');
+[VTIBX_years, VTIBX] = getDataFromFile('HW_1_data/V.csv');
 "VTIBX loaded"
 
 [INTC_years, INTC] = getDataFromFile('HW_1_data/VFINX.csv');
