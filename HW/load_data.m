@@ -78,16 +78,26 @@ data_18(:,6) = getDataForYear(VGSLX, VGSLX_years, 2018);
 data_18(:,7) = getDataForYear(MSFT, MSFT_years, 2018);
 data_18(:,8) = getDataForYear(WFC, WFC_years, 2018);
 data_18(:,9) = getDataForYear(UPS, UPS_years, 2018);
+data_14_r = [];
+data_15_r = [];
+data_16_r = [];
+data_17_r = [];
+data_18_r = [];
 
-for i=1:size(data_14,2)
+for i=1:9
+    data_14_r = horzcat(data_14_r, returnDaily(data_14(:,i))');
+    data_15_r = horzcat(data_15_r, returnDaily(data_14(:,i))');
+    data_16_r = horzcat(data_16_r, returnDaily(data_14(:,i))');
+    data_17_r = horzcat(data_17_r, returnDaily(data_14(:,i))');
+    data_18_r = horzcat(data_18_r, returnDaily(data_14(:,i))');
     
 end
 
-data_14_r = [returnDaily(data_14(:,1)),returnDaily(data_14(:,2)),returnDaily(data_14(:,3))];
-data_15_r = [returnDaily(data_15(:,1)),returnDaily(data_15(:,2)),returnDaily(data_15(:,3))];
-data_16_r = [returnDaily(data_16(:,1)),returnDaily(data_16(:,2)),returnDaily(data_16(:,3))];
-data_17_r = [returnDaily(data_17(:,1)),returnDaily(data_17(:,2)),returnDaily(data_17(:,3))];
-data_18_r = [returnDaily(data_18(:,1)),returnDaily(data_18(:,2)),returnDaily(data_18(:,3))];
+% data_14_r = [returnDaily(data_14(:,1))', returnDaily(data_14(:,2))', returnDaily(data_14(:,3))', returnDaily(data_14(:,4))', returnDaily(data_14(:,5))', returnDaily(data_14(:,6))', returnDaily(data_14(:,7))', returnDaily(data_14(:,8))', returnDaily(data_14(:,9))'];
+% data_15_r = [returnDaily(data_15(:,1))', returnDaily(data_15(:,2))', returnDaily(data_15(:,3))', returnDaily(data_15(:,4))', returnDaily(data_15(:,5))', returnDaily(data_15(:,6))', returnDaily(data_15(:,7))', returnDaily(data_15(:,8))', returnDaily(data_15(:,9))];
+% data_16_r = [returnDaily(data_16(:,1))', returnDaily(data_16(:,2))', returnDaily(data_16(:,3))', returnDaily(data_16(:,4))', returnDaily(data_16(:,5))', returnDaily(data_16(:,6))', returnDaily(data_16(:,7))', returnDaily(data_16(:,8))', returnDaily(data_16(:,9))];
+% data_17_r = [returnDaily(data_17(:,1))', returnDaily(data_17(:,2))', returnDaily(data_17(:,3))', returnDaily(data_17(:,3))', returnDaily(data_17(:,5))', returnDaily(data_17(:,6))', returnDaily(data_17(:,7))', returnDaily(data_17(:,8))', returnDaily(data_17(:,9))];
+% data_18_r = [returnDaily(data_18(:,1))', returnDaily(data_18(:,2))', returnDaily(data_18(:,3))];
 
 data_years = {data_14_r, data_15_r, data_16_r, data_17_r, data_18_r};
 A ={data_14_r(:,1:3),data_15_r(:,1:3),data_16_r(:,1:3),data_17_r(:,1:3),data_18_r(:,1:3)};
