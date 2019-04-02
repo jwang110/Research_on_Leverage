@@ -85,3 +85,18 @@ for i=[1:5]
       
     end
 end
+assets={'VFINX','VBMFX','VGSLX','VBLTX','VEIEX','VIMSX','Microsoft','Wells Fargo','UPS'};
+years_string={'2014','2015','2016','2017','2018'};
+years=[2014,2015,2016,2017,2018];
+%Graphing
+for i=[1:9]
+    figure
+    hold on
+    title(assets(i),'FontSize',28)
+    xlabel('Year','FontSize',24)
+    ylabel('\omega', 'Interpret','tex','FontSize',24)
+    
+    plot(years',iDist{1,i},':.b', 'MarkerSize', 25)
+end
+
+
