@@ -81,9 +81,7 @@ for i=[1:5]
                 l=[l val];
             end
         end
-        
-       iDist{1,i}{1,j}=max(l);
+       iDist{1,j}(1,i)=max(l);
       
     end
-  
 end
