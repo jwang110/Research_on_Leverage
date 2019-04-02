@@ -77,7 +77,7 @@ for i=[1:5]
         l=[];
         for a=[1:4]
             for b=[a+1:4]
-                val=kstest2(Q(:,a),Q(:,b));
+                [h val]=kstest2(Q(:,a),Q(:,b));
                 l=[l val];
             end
         end
