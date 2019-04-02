@@ -53,6 +53,12 @@ for i=[1:5]
     for j=[1:9]
         for int=[1:4]
             quarter{1,i}{1,j}{1,int}=calcQuarter(data_years{1,i}(:,j),int);
+             if int==3
+                if i>3
+                    quarter{1,i}{1,j}{1,int}(62)= quarter{1,i}{1,j}{1,int}(61);
+                end
+             end
+            
             end
         end
     end
@@ -65,8 +71,9 @@ for i=[1:5]
         Q=[];
         for k=[1:4]
             Q=[Q quarter{1,i}{1,j}{1,k}];
-            
         end
+        
+       
         l=[];
         for a=[1:4]
             for b=[a+1:4]
