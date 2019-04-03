@@ -49,7 +49,6 @@ for j=[1:9]
     for i=[1:5]
         %Q is ~62x4 matrix with columns being the different rows
         for k=[1:4]
-            Q
             Q=quarter{1,i}{1,j};
         end
         
@@ -75,7 +74,7 @@ for i=[1:9]
     hold on
     title(assets(i),'FontSize',28)
     xlabel('Year','FontSize',24)
-    ylabel('\omega', 'Interpret','tex','FontSize',24)
+    ylabel('\omega_{ID}', 'Interpret','tex','FontSize',24)
     
     plot(years',iDist{1,i},':.b', 'MarkerSize', 25)
 end
