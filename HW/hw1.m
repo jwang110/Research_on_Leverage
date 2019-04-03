@@ -82,16 +82,11 @@ for i=[1:5]
             for b=[a+1:4]
                 [h h val]=kstest2(Q(:,a),Q(:,b));
                 l=[l val];
-                if max(val)==1
-                    a
-                    b
-                    check{i,j}{1,1}=Q(:,a);
-                    check{i,j}{1,2}=Q(:,b);
             end
         end
-       iDist{1,j}(1,i)=max(l);
-      
-    end
+        
+        
+        iDist{1,j}(1,i)=max(l);
     end
 end
 
