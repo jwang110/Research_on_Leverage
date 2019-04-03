@@ -1,6 +1,6 @@
 clear;
 load('hw1_data.mat');
-
+font = 20;
 
 %% Exercise One
 num_years = 5;
@@ -19,7 +19,9 @@ for i=1:3
         end
         figure;
         plot(years, correlations);
-        title(assets(i),'FontSize',28);
+        title(assets(i),'FontSize',font + 4);
+            xlabel('Year','FontSize',font)
+            ylabel('\omega_{ID}', 'Interpret','tex','FontSize',font)
     end
 end
 
@@ -74,9 +76,9 @@ years=[2014,2015,2016,2017,2018];
 for i=[1:9]
     figure
     hold on
-    title(assets(i),'FontSize',28)
-    xlabel('Year','FontSize',24)
-    ylabel('\omega_{ID}', 'Interpret','tex','FontSize',24)
+    title(assets(i),'FontSize',font+4)
+    xlabel('Year','FontSize',font)
+    ylabel('\omega_{ID}', 'Interpret','tex','FontSize',font)
     
     plot(years',iDist{1,i},':.b', 'MarkerSize', 25)
 end
