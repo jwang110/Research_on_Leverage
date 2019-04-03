@@ -51,26 +51,29 @@ end
 
 for i=[1:5]
     for j=[1:9]
-        for int=[1:4]
-            quarter{1,i}{1,j}{1,int}=calcQuarter(data_years{1,i}(:,j),int);
-             if int==3
-                if i>3
-                    quarter{1,i}{1,j}{1,int}(62)= quarter{1,i}{1,j}{1,int}(61);
-                end
-             end
-            
+        temp = [];
+        for int=1:4
+            quart = calcQuarter(data_years{1,i}(:,j),int);
+            if size(quart,1)>61
+                quart = quart(1:61,1);
+            end
+            if int == 1
+                temp = quart;
+            else
+                temp = horzcat(temp,quart);
             end
         end
+        quarter{1,i}{1,j} = temp;
     end
+end
 
 
 
 for i=[1:5]
     for j=[1:9]
         %Q is ~62x4 matrix with columns being the different rows
-        Q=[];
         for k=[1:4]
-            Q=[Q quarter{1,i}{1,j}{1,k}];
+            Q=quarter{1,i}{1,j};
         end
         
        

@@ -51,59 +51,65 @@ end
 
 for i=[1:5]
     for j=[1:9]
+        temp = 
         for int=[1:4]
-            quarter{1,i}{1,j}{1,int}=calcQuarter(data_years{1,i}(:,j),int);
-             if int==3
-                if i>3
-                    quarter{1,i}{1,j}{1,int}(62)= quarter{1,i}{1,j}{1,int}(61);
-                end
+            quart = calcQuarter(data_years{1,i}(:,j),int);
+   
+             if (int>3 && i>3)
+                len = length(quart)-1;
+                quart = quart(:,1:len);
              end
-            
-            end
+             if int == 1
+                 temp = quart;
+             else
+                temp = horzcat(temp,quart);
+             end
         end
-    end
-
-
-
-for i=[1:5]
-    for j=[1:9]
-        %Q is ~62x4 matrix with columns being the different rows
-        Q=[];
-        for k=[1:4]
-            Q=[Q quarter{1,i}{1,j}{1,k}];
-        end
-        
-       
-        l=[];
-        for a=[1:4]
-            for b=[a+1:4]
-                [h h val]=kstest2(Q(:,a),Q(:,b));
-                l=[l val];
-                if max(val)==1
-                    a
-                    b
-                    check{i,j}{1,1}=Q(:,a);
-                    check{i,j}{1,2}=Q(:,b);
-            end
-        end
-       iDist{1,j}(1,i)=max(l);
-      
-    end
+        quarter{1,i}{1,j} = mat2cell(temp);
     end
 end
 
-assets={'VFINX','VBMFX','VGSLX','VBLTX','VEIEX','VIMSX','Microsoft','Wells Fargo','UPS'};
-years_string={'2014','2015','2016','2017','2018'};
-years=[2014,2015,2016,2017,2018];
-%Graphing
-for i=[1:9]
-    figure
-    hold on
-    title(assets(i),'FontSize',28)
-    xlabel('Year','FontSize',24)
-    ylabel('\omega', 'Interpret','tex','FontSize',24)
-    
-    plot(years',iDist{1,i},':.b', 'MarkerSize', 25)
-end
 
-
+% 
+% for i=[1:5]
+%     for j=[1:9]
+%         %Q is ~62x4 matrix with columns being the different rows
+%         Q=[];
+%         for k=[1:4]
+%             Q=[Q quarter{1,i}{1,j}{1,k}];
+%         end
+%         
+%        
+%         l=[];
+%         for a=[1:4]
+%             for b=[a+1:4]
+%                 [h h val]=kstest2(Q(:,a),Q(:,b));
+%                 l=[l val];
+%                 if max(val)==1
+%                     a
+%                     b
+%                     check{i,j}{1,1}=Q(:,a);
+%                     check{i,j}{1,2}=Q(:,b);
+%             end
+%         end
+%        iDist{1,j}(1,i)=max(l);
+%       
+%     end
+%     end
+% end
+% 
+% assets={'VFINX','VBMFX','VGSLX','VBLTX','VEIEX','VIMSX','Microsoft','Wells Fargo','UPS'};
+% years_string={'2014','2015','2016','2017','2018'};
+% years=[2014,2015,2016,2017,2018];
+% %Graphing
+% for i=[1:9]
+%     figure
+%     hold on
+%     title(assets(i),'FontSize',28)
+%     xlabel('Year','FontSize',24)
+%     ylabel('\omega', 'Interpret','tex','FontSize',24)
+%     
+%     plot(years',iDist{1,i},':.b', 'MarkerSize', 25)
+% end
+% 
+% 
