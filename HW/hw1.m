@@ -49,7 +49,6 @@ for j=[1:9]
     for i=[1:5]
         %Q is ~62x4 matrix with columns being the different rows
         for k=[1:4]
-            Q
             Q=quarter{1,i}{1,j};
         end
         
