@@ -69,8 +69,8 @@ end
 
 
 
-for i=[1:5]
-    for j=[1:9]
+for j=[1:9]
+    for i=[1:5]
         %Q is ~62x4 matrix with columns being the different rows
         for k=[1:4]
             Q=quarter{1,i}{1,j};
@@ -84,8 +84,7 @@ for i=[1:5]
                 l=[l val];
             end
         end
-        
-        
+        l
         iDist{1,j}(1,i)=max(l);
     end
 end

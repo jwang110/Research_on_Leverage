@@ -81,11 +81,9 @@ for i=[1:5]
         for a=[1:4]
             for b=[a+1:4]
                 [h h val]=kstest2(Q(:,a),Q(:,b));
-                l=[l val];
+                l{1,i=[l val];
             end
         end
-        
-        
         iDist{1,j}(1,i)=max(l);
     end
 end
