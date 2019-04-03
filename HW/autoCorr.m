@@ -1,4 +1,4 @@
-function [v00, v01, v11]=autoCorr(r)
+function w=autoCorr(r)
 u1=mean(r);
 u0=sum(r(2:length(r)))/length(r);
 
