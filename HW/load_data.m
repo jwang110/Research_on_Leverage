@@ -86,10 +86,10 @@ data_18_r = [];
 
 for i=1:9
     data_14_r = horzcat(data_14_r, returnDaily(data_14(:,i))');
-    data_15_r = horzcat(data_15_r, returnDaily(data_14(:,i))');
-    data_16_r = horzcat(data_16_r, returnDaily(data_14(:,i))');
-    data_17_r = horzcat(data_17_r, returnDaily(data_14(:,i))');
-    data_18_r = horzcat(data_18_r, returnDaily(data_14(:,i))');
+    data_15_r = horzcat(data_15_r, returnDaily(data_15(:,i))');
+    data_16_r = horzcat(data_16_r, returnDaily(data_16(:,i))');
+    data_17_r = horzcat(data_17_r, returnDaily(data_17(:,i))');
+    data_18_r = horzcat(data_18_r, returnDaily(data_18(:,i))');
     
 end
 
