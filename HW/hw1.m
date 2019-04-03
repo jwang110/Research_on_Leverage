@@ -16,7 +16,7 @@ for i=1:3
             correlations = horzcat(correlations,[autoCorr(q1), autoCorr(q2), autoCorr(q3), autoCorr(q4)]);
         end
         figure;
-        plot(correlations, years, 'bx');
+        plot(years, correlations, 'bx');
     end
 end
 
