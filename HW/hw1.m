@@ -21,7 +21,7 @@ for i=1:3
         plot(years, correlations);
         title(assets(i),'FontSize',font + 4);
             xlabel('Year','FontSize',font)
-            ylabel('\omega_{ID}', 'Interpret','tex','FontSize',font)
+            ylabel('Correlations', 'FontSize',font)
     end
 end
 
