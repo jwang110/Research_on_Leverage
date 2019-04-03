@@ -5,6 +5,7 @@ load('hw1_data.mat');
 %% Exercise One
 num_years = 5;
 years = [2014, 2014.25, 2014.5, 2014.75, 2015, 2015.25, 2015.5, 2015.75, 2016, 2016.25, 2016.5, 2016.75,2017, 2017.25, 2017.5, 2017.75,2018, 2018.25, 2018.5, 2018.75];
+assets={'VFINX','VBMFX','VGSLX','VBLTX','VEIEX','VIMSX','Microsoft','Wells Fargo','UPS'};
 for i=1:3
     for j = 1:3
         correlations = [];
@@ -18,6 +19,7 @@ for i=1:3
         end
         figure;
         plot(years, correlations);
+        title(assets(i),'FontSize',28);
     end
 end
 
