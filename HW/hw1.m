@@ -6,6 +6,7 @@ font = 20;
 num_years = 5;
 years = [2014, 2014.25, 2014.5, 2014.75, 2015, 2015.25, 2015.5, 2015.75, 2016, 2016.25, 2016.5, 2016.75,2017, 2017.25, 2017.5, 2017.75,2018, 2018.25, 2018.5, 2018.75];
 assets={'VFINX','VBMFX','VGSLX','VBLTX','VEIEX','VIMSX','Microsoft','Wells Fargo','UPS'};
+average_cor=[];
 for i=1:3
     for j = 1:3
         correlations = [];
@@ -22,6 +23,7 @@ for i=1:3
         title(assets(i),'FontSize',font + 4);
             xlabel('Year','FontSize',font)
             ylabel('Correlations', 'FontSize',font)
+        average_cor=[average_cor;mean(correlations)];
     end
 end
 
@@ -89,12 +91,18 @@ for i=1:9
 end
 assets={'VFINX';'VBMFX';'VGSLX';'VBLTX';'VEIEX';'VIMSX';'Microsoft';'Wells_Fargo';'UPS'};
 T=table(assets,average_ome)
-%% 
-% From the graph, of two exercise above and the averge omega value,
-% we can see almost all the assets does not have a significant correlation
+
+T=table(assets,average_cor)
+% From the graphs in the two exercises above and the average identically distributed omega value,
+% we can see that almost all the assets do not have a significant
+% correlation. 
+% *VBMFX* has the highest average identically distributed value, which was
+% only approximately .27
+% *VBLTX* has the lowest average identically distributed value, which was
+% approximately .18
 % The correlation calculated in both way are around 0.2 which is low. The
 % correlation means the asset price for each year are independent. There
-% are some assets has lower correlation than others. For example VBLTX,
+% are some assets th lower correlation than others. For example VBLTX,
 % VEIEX, and Wells_Fargo. Thus, these three assets may better be described
 % as IID model in each year.
 
