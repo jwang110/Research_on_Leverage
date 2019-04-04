@@ -95,18 +95,20 @@ assets={'VFINX';'VBMFX';'VGSLX';'VBLTX';'VEIEX';'VIMSX';'Microsoft';'Wells_Fargo
 T=table(assets,average_ome)
 
 T=table(assets,average_cor)
+
 % From the graphs in the two exercises above and the average identically distributed omega value,
 % we can see that almost all the assets do not have a significant
 % correlation, and can be described by an IID model. Some years for
 % specific assets are better described by an IID model than others, for
-% example
+% example the omega_ID value for VGSLX is under .2 in 2015, 2016, 2017; 
+% these are the closer values to 0 modeled from these assets.
 
 % As seen in the tables, all of the assets except VEIEX have negative average correlation values,
 % and Wells Fargo and UPS have the closest values to 0 (although they are
 % all to the power of 10^2 or 10^3). This implies that these assets do not
-% have a significant correlation.
-
-
+% have a significant correlation. Since a zero correlation implies no
+% relationship at all, we can be more confident that these assests follow
+% our independence assumptions.
 
 % *VBMFX* has the highest average identically distributed value, which was
 % only approximately .27
