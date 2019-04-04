@@ -1,10 +1,13 @@
-clear;
+%% MATH420 HW4 
+% Lily Northcut, Elizabeth O'Callaghan, Jiateng Wang
+%% load the data
 load('hw1_data.mat');
 font = 20;
-
 %% Exercise One
 num_years = 5;
-years = [2014, 2014.25, 2014.5, 2014.75, 2015, 2015.25, 2015.5, 2015.75, 2016, 2016.25, 2016.5, 2016.75,2017, 2017.25, 2017.5, 2017.75,2018, 2018.25, 2018.5, 2018.75];
+years = [2014, 2014.25, 2014.5, 2014.75, 2015, 2015.25, 2015.5,...
+    2015.75, 2016, 2016.25, 2016.5, 2016.75,2017, 2017.25, 2017.5,...
+    2017.75,2018, 2018.25, 2018.5, 2018.75];
 assets={'VFINX','VBMFX','VGSLX','VBLTX','VEIEX','VIMSX','Microsoft','Wells Fargo','UPS'};
 average_cor=[];
 h=0;
@@ -17,7 +20,8 @@ for i=1:3
             q2 = calcQuarter(curr_data(:,j),2);
             q3 = calcQuarter(curr_data(:,j),3);
             q4 = calcQuarter(curr_data(:,j),4);
-            correlations = horzcat(correlations,[autoCorr(q1), autoCorr(q2), autoCorr(q3), autoCorr(q4)]);
+            correlations = horzcat(correlations,[autoCorr(q1),...
+                autoCorr(q2), autoCorr(q3), autoCorr(q4)]);
         end
         h=h+1;
         figure;
@@ -92,9 +96,9 @@ for i=1:9
     average_ome=[average_ome;mean(cell2mat(iDist(1,i)))];
 end
 assets={'VFINX';'VBMFX';'VGSLX';'VBLTX';'VEIEX';'VIMSX';'Microsoft';'Wells_Fargo';'UPS'};
-T=table(assets,average_ome)
+average_omega=table(assets,average_ome)
 
-T=table(assets,average_cor)
+average_correlation=table(assets,average_cor)
 
 % From the graphs in the two exercises above and the average identically distributed omega value,
 % we can see that almost all the assets do not have a significant
@@ -121,6 +125,65 @@ T=table(assets,average_cor)
 % are some assets th lower correlation than others. For example VBLTX,
 % VEIEX, and Wells_Fargo. Thus, these three assets may better be described
 % as IID model in each year.
+%% functions
+function w=autoCorr(r)
+u1=mean(r);
+u0=sum(r(2:length(r)))/length(r);
 
+
+v00=(1/length(r)) * sum( (r(2:length(r))-u0).^2 );
+v01=(1/length(r)) * sum( (r(1:length(r)-1)-u1).*(r(2:length(r))-u0) );
+v11=(1/length(r)) * sum( (r(1:length(r))-u1).^2 );
+
+
+w=v01/(sqrt(v00)*sqrt(v11));
+
+end
+function data_one_q = calcQuarter(data, quarter)
+%UNTITLED5 Summary of this function goes here
+%   Detailed explanation goes here
+start = round((quarter-1)/4*size(data,1),0)+1;
+end_val = round((quarter)/4*size(data,1),0);
+data_one_q = zeros(end_val-start,1);
+    for i=1:size(data_one_q,1)
+        data_one_q(i) = data(i+start,1); 
+    end
+end
+function stockData = getDataForYear(stocks, dates, startYear)
+%UNTITLED7 Summary of this function goes here
+%   Detailed explanation goes here
+startIndex = find(dates==(startYear-1), 1, 'last');
+endIndex = find(dates==startYear, 1, 'last');
+stockData = zeros(endIndex-startIndex,1);
+for i=1:size(stockData,1)
+    stockData(i,1) = stocks(startIndex+i-1);
+end
+end
+function [dates, stockData]= getDataFromFile(filename)
+%UNTITLED6 Summary of this function goes here
+%   Detailed explanation goes here
+[numtemp, datetext, rawtemp] = xlsread(filename, 'A:A');
+stockData = xlsread(filename,'F:F');
+numDataPoints = size(datetext,1);
+dates = zeros(numDataPoints-1,1);
+
+for i=2:numDataPoints
+   dates(i,1) =  str2num(datestr(cell2mat(datetext(i,1)),'yyyy'));
+end
+
+for i=2:size(stockData,1)
+    if isnan(stockData(i)) 
+        stockData(i) = stockData(i-1);
+    end
+    
+end
+end
+function r = returnDaily(x)
+i=1;
+while i<length(x)
+    r(i)=(x(i+1)-x(i))/x(i);
+    i=i+1;
+end
+end
 
 
