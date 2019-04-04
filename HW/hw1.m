@@ -82,5 +82,21 @@ for i=[1:9]
     
     plot(years',iDist{1,i},':.b', 'MarkerSize', 25)
 end
+%% Exercise Three
+average_ome=[];
+for i=1:9
+    average_ome=[average_ome;mean(cell2mat(iDist(1,i)))];
+end
+assets={'VFINX';'VBMFX';'VGSLX';'VBLTX';'VEIEX';'VIMSX';'Microsoft';'Wells_Fargo';'UPS'};
+T=table(assets,average_ome)
+%% 
+% From the graph, of two exercise above and the averge omega value,
+% we can see almost all the assets does not have a significant correlation
+% The correlation calculated in both way are around 0.2 which is low. The
+% correlation means the asset price for each year are independent. There
+% are some assets has lower correlation than others. For example VBLTX,
+% VEIEX, and Wells_Fargo. Thus, these three assets may better be described
+% as IID model in each year.
+
 
 
