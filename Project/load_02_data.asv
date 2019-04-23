@@ -1,0 +1,25 @@
+clear all;
+VFINX = getDataFromFile('HW_1_data/VFINX.csv');
+disp('VFINX loaded');
+VBMFX = getDataFromFile('HW_1_data/VBMFX.csv');
+disp('VBMFX loaded');
+VGSLX = getDataFromFile('HW_1_data/VGSLX.csv');
+disp('VGSLX loaded');
+
+VBLTX = getDataFromFile('HW_1_data/VBLTX.csv');
+disp('VBLTX loaded');
+VEIEX = getDataFromFile('HW_1_data/VEIEX.csv');
+disp('VEIEX loaded');
+VIMSX = getDataFromFile('HW_1_data/VIMSX.csv');
+disp('VIMSX loaded');
+
+MSFT = getDataFromFile('HW_1_data/MSFT.csv');
+disp('Microsoft loaded');
+WFC = getDataFromFile('HW_1_data/WFC.csv');
+disp('Wells Fargo loaded');
+UPS = getDataFromFile('HW_1_data/UPS.csv');
+disp('UPS loaded');
+
+data_cell = {VFINX, VBMFX, VGSLX, VBLTX, VEIEX, VIMSX, MSFT, WFC, UPS};
+labels = {"VFINX", VBMFX", VGSLX", VBLTX", VEIEX", VIMSX", "MSFT", "WFC", "UPS"};
+clearvars -except data_cell labels
