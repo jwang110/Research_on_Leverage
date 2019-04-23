@@ -20,6 +20,6 @@ disp('Wells Fargo loaded');
 UPS = getDataFromFile('data_2002/UPS.csv');
 disp('UPS loaded');
 
-data_cell = {VFINX, VBMFX, VGSLX, VBLTX, VEIEX, VIMSX, MSFT, WFC, UPS};
+data = {VFINX, VBMFX, VGSLX, VBLTX, VEIEX, VIMSX, MSFT, WFC, UPS};
 labels = {"VFINX", "VBMFX", "VGSLX", "VBLTX", "VEIEX", "VIMSX", "MSFT", "WFC", "UPS"};
 clearvars -except data_cell labels
