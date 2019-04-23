@@ -9,10 +9,10 @@
 %% (3) Dimensionality
 
 
-%% (4) Proximity
+%% (4) Minimum Volatility
 
 
-%% (5) Efficientcy
+%% (5) Efficiency Proximity
 
 
 %% (6) Chi
