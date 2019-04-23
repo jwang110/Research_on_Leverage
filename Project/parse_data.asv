@@ -1,5 +1,5 @@
 clear all;
-year = '1995';
+year = '2002';
 load(strcat('data_',year,'.mat'));
 
 num_stocks = size(data,2);
@@ -19,6 +19,7 @@ num_years = end_year-start_year;
 
 data_m = cell(1,num_years);
 data_q = cell(1,num_years);
+year_labels = cell
 
 for i=1:num_years
     curr_year = start_year+i-1;
