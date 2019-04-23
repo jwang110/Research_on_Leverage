@@ -1,0 +1,476 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>MATH420 HW4</title><meta name="generator" content="MATLAB 9.2"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2019-04-04"><meta name="DC.source" content="hw1.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>MATH420 HW4</h1><!--introduction--><p>Lily Northcut, Elizabeth O'Callaghan, Jiateng Wang</p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">load the data</a></li><li><a href="#2">Exercise One</a></li><li><a href="#3">Exercise Two</a></li><li><a href="#4">Exercise Three</a></li><li><a href="#5">functions</a></li></ul></div><h2 id="1">load the data</h2><pre class="codeinput">load(<span class="string">'hw1_data.mat'</span>);
+font = 20;
+</pre><h2 id="2">Exercise One</h2><pre class="codeinput">num_years = 5;
+years = [2014, 2014.25, 2014.5, 2014.75, 2015, 2015.25, 2015.5,<span class="keyword">...</span>
+    2015.75, 2016, 2016.25, 2016.5, 2016.75,2017, 2017.25, 2017.5,<span class="keyword">...</span>
+    2017.75,2018, 2018.25, 2018.5, 2018.75];
+assets={<span class="string">'VFINX'</span>,<span class="string">'VBMFX'</span>,<span class="string">'VGSLX'</span>,<span class="string">'VBLTX'</span>,<span class="string">'VEIEX'</span>,<span class="string">'VIMSX'</span>,<span class="string">'Microsoft'</span>,<span class="string">'Wells Fargo'</span>,<span class="string">'UPS'</span>};
+average_cor=[];
+h=0;
+<span class="keyword">for</span> i=1:3
+    <span class="keyword">for</span> j = 1:3
+        correlations = [];
+        <span class="keyword">for</span> k=1:num_years
+            curr_data = data_group{1,i}{1,k};
+            q1 = calcQuarter(curr_data(:,j),1);
+            q2 = calcQuarter(curr_data(:,j),2);
+            q3 = calcQuarter(curr_data(:,j),3);
+            q4 = calcQuarter(curr_data(:,j),4);
+            correlations = horzcat(correlations,[autoCorr(q1),<span class="keyword">...</span>
+                autoCorr(q2), autoCorr(q3), autoCorr(q4)]);
+        <span class="keyword">end</span>
+        h=h+1;
+        figure;
+        plot(years, correlations);
+        title(assets(h),<span class="string">'FontSize'</span>,font + 4);
+            xlabel(<span class="string">'Year'</span>,<span class="string">'FontSize'</span>,font)
+            ylabel(<span class="string">'Correlations'</span>, <span class="string">'FontSize'</span>,font)
+        average_cor=[average_cor;mean(correlations)];
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="hw1_01.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_02.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_03.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_04.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_05.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_06.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_07.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_08.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_09.png" style="width:560px;height:420px;" alt=""> <h2 id="3">Exercise Two</h2><pre class="codeinput"><span class="comment">% quarters{1,years}{1,asset}{1,quartered returns}</span>
+
+<span class="keyword">for</span> i=[1:5]
+    <span class="keyword">for</span> j=[1:9]
+        temp = [];
+        <span class="keyword">for</span> int=1:4
+            quart = calcQuarter(data_years{1,i}(:,j),int);
+            <span class="keyword">if</span> size(quart,1)&gt;61
+                quart = quart(1:61,1);
+            <span class="keyword">end</span>
+            <span class="keyword">if</span> int == 1
+                temp = quart;
+            <span class="keyword">else</span>
+                temp = horzcat(temp,quart);
+            <span class="keyword">end</span>
+        <span class="keyword">end</span>
+        quarter{1,i}{1,j} = temp;
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+
+
+<span class="keyword">for</span> j=[1:9]
+    <span class="keyword">for</span> i=[1:5]
+        <span class="comment">%Q is ~62x4 matrix with columns being the different rows</span>
+        <span class="keyword">for</span> k=[1:4]
+            Q=quarter{1,i}{1,j};
+        <span class="keyword">end</span>
+
+
+        l=[];
+        <span class="keyword">for</span> a=[1:4]
+            <span class="keyword">for</span> b=[a+1:4]
+                [h, h, val]=kstest2(Q(:,a),Q(:,b));
+                l=[l val];
+            <span class="keyword">end</span>
+            iDist{1,j}(1,i)=max(l);
+        <span class="keyword">end</span>
+
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+
+assets={<span class="string">'VFINX'</span>,<span class="string">'VBMFX'</span>,<span class="string">'VGSLX'</span>,<span class="string">'VBLTX'</span>,<span class="string">'VEIEX'</span>,<span class="string">'VIMSX'</span>,<span class="string">'Microsoft'</span>,<span class="string">'Wells Fargo'</span>,<span class="string">'UPS'</span>};
+years_string={<span class="string">'2014'</span>,<span class="string">'2015'</span>,<span class="string">'2016'</span>,<span class="string">'2017'</span>,<span class="string">'2018'</span>};
+years=[2014,2015,2016,2017,2018];
+<span class="comment">%Graphing</span>
+<span class="keyword">for</span> i=[1:9]
+    figure
+    hold <span class="string">on</span>
+    title(assets(i),<span class="string">'FontSize'</span>,font+4)
+    xlabel(<span class="string">'Year'</span>,<span class="string">'FontSize'</span>,font)
+    ylabel(<span class="string">'\omega_{ID}'</span>, <span class="string">'Interpret'</span>,<span class="string">'tex'</span>,<span class="string">'FontSize'</span>,font)
+
+    plot(years',iDist{1,i},<span class="string">':.b'</span>, <span class="string">'MarkerSize'</span>, 25)
+<span class="keyword">end</span>
+</pre><img vspace="5" hspace="5" src="hw1_10.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_11.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_12.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_13.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_14.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_15.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_16.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_17.png" style="width:560px;height:420px;" alt=""> <img vspace="5" hspace="5" src="hw1_18.png" style="width:560px;height:420px;" alt=""> <h2 id="4">Exercise Three</h2><pre class="codeinput">average_ome=[];
+<span class="keyword">for</span> i=1:9
+    average_ome=[average_ome;mean(cell2mat(iDist(1,i)))];
+<span class="keyword">end</span>
+assets={<span class="string">'VFINX'</span>;<span class="string">'VBMFX'</span>;<span class="string">'VGSLX'</span>;<span class="string">'VBLTX'</span>;<span class="string">'VEIEX'</span>;<span class="string">'VIMSX'</span>;<span class="string">'Microsoft'</span>;<span class="string">'Wells_Fargo'</span>;<span class="string">'UPS'</span>};
+T=table(assets,average_ome)
+
+T=table(assets,average_cor)
+
+<span class="comment">% From the graphs in the two exercises above and the average identically distributed omega value,</span>
+<span class="comment">% we can see that almost all the assets do not have a significant</span>
+<span class="comment">% correlation, and can be described by an IID model. Some years for</span>
+<span class="comment">% specific assets are better described by an IID model than others, for</span>
+<span class="comment">% example the omega_ID value for VGSLX is under .2 in 2015, 2016, 2017;</span>
+<span class="comment">% these are the closer values to 0 modeled from these assets.</span>
+
+<span class="comment">% As seen in the tables, all of the assets except VEIEX have negative average correlation values,</span>
+<span class="comment">% and Wells Fargo and UPS have the closest values to 0 (although they are</span>
+<span class="comment">% all to the power of 10^2 or 10^3). This implies that these assets do not</span>
+<span class="comment">% have a significant correlation. Since a zero correlation implies no</span>
+<span class="comment">% relationship at all, we can be more confident that these assests follow</span>
+<span class="comment">% our independence assumptions.</span>
+
+<span class="comment">% *VBMFX* has the highest average identically distributed value, which was</span>
+<span class="comment">% only approximately .27</span>
+<span class="comment">% *VBLTX* has the lowest average identically distributed value, which was</span>
+<span class="comment">% approximately .18</span>
+
+
+<span class="comment">% The correlation calculated in both way are around 0.2 which is low. The</span>
+<span class="comment">% correlation means the asset price for each year are independent. There</span>
+<span class="comment">% are some assets th lower correlation than others. For example VBLTX,</span>
+<span class="comment">% VEIEX, and Wells_Fargo. Thus, these three assets may better be described</span>
+<span class="comment">% as IID model in each year.</span>
+</pre><pre class="codeoutput">
+T =
+
+  9&times;2 table
+
+       assets        average_ome
+    _____________    ___________
+
+    'VFINX'          0.22295    
+    'VBMFX'          0.27213    
+    'VGSLX'          0.20656    
+    'VBLTX'          0.18689    
+    'VEIEX'              0.2    
+    'VIMSX'          0.20656    
+    'Microsoft'      0.21639    
+    'Wells_Fargo'        0.2    
+    'UPS'            0.20984    
+
+
+T =
+
+  9&times;2 table
+
+       assets        average_cor
+    _____________    ___________
+
+    'VFINX'           -0.069406 
+    'VBMFX'           -0.079435 
+    'VGSLX'           -0.013824 
+    'VBLTX'           -0.056523 
+    'VEIEX'            0.089885 
+    'VIMSX'           -0.013824 
+    'Microsoft'       -0.061256 
+    'Wells_Fargo'    -0.0076949 
+    'UPS'            -0.0065944 
+
+</pre><h2 id="5">functions</h2><pre class="codeinput"><span class="keyword">function</span> w=autoCorr(r)
+u1=mean(r);
+u0=sum(r(2:length(r)))/length(r);
+
+
+v00=(1/length(r)) * sum( (r(2:length(r))-u0).^2 );
+v01=(1/length(r)) * sum( (r(1:length(r)-1)-u1).*(r(2:length(r))-u0) );
+v11=(1/length(r)) * sum( (r(1:length(r))-u1).^2 );
+
+
+w=v01/(sqrt(v00)*sqrt(v11));
+
+<span class="keyword">end</span>
+<span class="keyword">function</span> data_one_q = calcQuarter(data, quarter)
+<span class="comment">%UNTITLED5 Summary of this function goes here</span>
+<span class="comment">%   Detailed explanation goes here</span>
+start = round((quarter-1)/4*size(data,1),0)+1;
+end_val = round((quarter)/4*size(data,1),0);
+data_one_q = zeros(end_val-start,1);
+    <span class="keyword">for</span> i=1:size(data_one_q,1)
+        data_one_q(i) = data(i+start,1);
+    <span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="keyword">function</span> stockData = getDataForYear(stocks, dates, startYear)
+<span class="comment">%UNTITLED7 Summary of this function goes here</span>
+<span class="comment">%   Detailed explanation goes here</span>
+startIndex = find(dates==(startYear-1), 1, <span class="string">'last'</span>);
+endIndex = find(dates==startYear, 1, <span class="string">'last'</span>);
+stockData = zeros(endIndex-startIndex,1);
+<span class="keyword">for</span> i=1:size(stockData,1)
+    stockData(i,1) = stocks(startIndex+i-1);
+<span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="keyword">function</span> [dates, stockData]= getDataFromFile(filename)
+<span class="comment">%UNTITLED6 Summary of this function goes here</span>
+<span class="comment">%   Detailed explanation goes here</span>
+[numtemp, datetext, rawtemp] = xlsread(filename, <span class="string">'A:A'</span>);
+stockData = xlsread(filename,<span class="string">'F:F'</span>);
+numDataPoints = size(datetext,1);
+dates = zeros(numDataPoints-1,1);
+
+<span class="keyword">for</span> i=2:numDataPoints
+   dates(i,1) =  str2num(datestr(cell2mat(datetext(i,1)),<span class="string">'yyyy'</span>));
+<span class="keyword">end</span>
+
+<span class="keyword">for</span> i=2:size(stockData,1)
+    <span class="keyword">if</span> isnan(stockData(i))
+        stockData(i) = stockData(i-1);
+    <span class="keyword">end</span>
+
+<span class="keyword">end</span>
+<span class="keyword">end</span>
+<span class="keyword">function</span> r = returnDaily(x)
+i=1;
+<span class="keyword">while</span> i&lt;length(x)
+    r(i)=(x(i+1)-x(i))/x(i);
+    i=i+1;
+<span class="keyword">end</span>
+<span class="keyword">end</span>
+</pre><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2017a</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% MATH420 HW4 
+% Lily Northcut, Elizabeth O'Callaghan, Jiateng Wang
+%% load the data
+load('hw1_data.mat');
+font = 20;
+%% Exercise One
+num_years = 5;
+years = [2014, 2014.25, 2014.5, 2014.75, 2015, 2015.25, 2015.5,...
+    2015.75, 2016, 2016.25, 2016.5, 2016.75,2017, 2017.25, 2017.5,...
+    2017.75,2018, 2018.25, 2018.5, 2018.75];
+assets={'VFINX','VBMFX','VGSLX','VBLTX','VEIEX','VIMSX','Microsoft','Wells Fargo','UPS'};
+average_cor=[];
+h=0;
+for i=1:3
+    for j = 1:3
+        correlations = [];
+        for k=1:num_years
+            curr_data = data_group{1,i}{1,k};
+            q1 = calcQuarter(curr_data(:,j),1);
+            q2 = calcQuarter(curr_data(:,j),2);
+            q3 = calcQuarter(curr_data(:,j),3);
+            q4 = calcQuarter(curr_data(:,j),4);
+            correlations = horzcat(correlations,[autoCorr(q1),...
+                autoCorr(q2), autoCorr(q3), autoCorr(q4)]);
+        end
+        h=h+1;
+        figure;
+        plot(years, correlations);
+        title(assets(h),'FontSize',font + 4);
+            xlabel('Year','FontSize',font)
+            ylabel('Correlations', 'FontSize',font)
+        average_cor=[average_cor;mean(correlations)];
+    end
+end
+
+%% Exercise Two
+
+% quarters{1,years}{1,asset}{1,quartered returns}
+
+for i=[1:5]
+    for j=[1:9]
+        temp = [];
+        for int=1:4
+            quart = calcQuarter(data_years{1,i}(:,j),int);
+            if size(quart,1)>61
+                quart = quart(1:61,1);
+            end
+            if int == 1
+                temp = quart;
+            else
+                temp = horzcat(temp,quart);
+            end
+        end
+        quarter{1,i}{1,j} = temp;
+    end
+end
+
+
+
+for j=[1:9]
+    for i=[1:5]
+        %Q is ~62x4 matrix with columns being the different rows
+        for k=[1:4]
+            Q=quarter{1,i}{1,j};
+        end
+        
+       
+        l=[];
+        for a=[1:4]
+            for b=[a+1:4]
+                [h, h, val]=kstest2(Q(:,a),Q(:,b));
+                l=[l val];
+            end
+            iDist{1,j}(1,i)=max(l);
+        end
+
+    end
+end
+
+assets={'VFINX','VBMFX','VGSLX','VBLTX','VEIEX','VIMSX','Microsoft','Wells Fargo','UPS'};
+years_string={'2014','2015','2016','2017','2018'};
+years=[2014,2015,2016,2017,2018];
+%Graphing
+for i=[1:9]
+    figure
+    hold on
+    title(assets(i),'FontSize',font+4)
+    xlabel('Year','FontSize',font)
+    ylabel('\omega_{ID}', 'Interpret','tex','FontSize',font)
+    
+    plot(years',iDist{1,i},':.b', 'MarkerSize', 25)
+end
+%% Exercise Three
+average_ome=[];
+for i=1:9
+    average_ome=[average_ome;mean(cell2mat(iDist(1,i)))];
+end
+assets={'VFINX';'VBMFX';'VGSLX';'VBLTX';'VEIEX';'VIMSX';'Microsoft';'Wells_Fargo';'UPS'};
+T=table(assets,average_ome)
+
+T=table(assets,average_cor)
+
+% From the graphs in the two exercises above and the average identically distributed omega value,
+% we can see that almost all the assets do not have a significant
+% correlation, and can be described by an IID model. Some years for
+% specific assets are better described by an IID model than others, for
+% example the omega_ID value for VGSLX is under .2 in 2015, 2016, 2017; 
+% these are the closer values to 0 modeled from these assets.
+
+% As seen in the tables, all of the assets except VEIEX have negative average correlation values,
+% and Wells Fargo and UPS have the closest values to 0 (although they are
+% all to the power of 10^2 or 10^3). This implies that these assets do not
+% have a significant correlation. Since a zero correlation implies no
+% relationship at all, we can be more confident that these assests follow
+% our independence assumptions.
+
+% *VBMFX* has the highest average identically distributed value, which was
+% only approximately .27
+% *VBLTX* has the lowest average identically distributed value, which was
+% approximately .18
+
+
+% The correlation calculated in both way are around 0.2 which is low. The
+% correlation means the asset price for each year are independent. There
+% are some assets th lower correlation than others. For example VBLTX,
+% VEIEX, and Wells_Fargo. Thus, these three assets may better be described
+% as IID model in each year.
+%% functions
+function w=autoCorr(r)
+u1=mean(r);
+u0=sum(r(2:length(r)))/length(r);
+
+
+v00=(1/length(r)) * sum( (r(2:length(r))-u0).^2 );
+v01=(1/length(r)) * sum( (r(1:length(r)-1)-u1).*(r(2:length(r))-u0) );
+v11=(1/length(r)) * sum( (r(1:length(r))-u1).^2 );
+
+
+w=v01/(sqrt(v00)*sqrt(v11));
+
+end
+function data_one_q = calcQuarter(data, quarter)
+%UNTITLED5 Summary of this function goes here
+%   Detailed explanation goes here
+start = round((quarter-1)/4*size(data,1),0)+1;
+end_val = round((quarter)/4*size(data,1),0);
+data_one_q = zeros(end_val-start,1);
+    for i=1:size(data_one_q,1)
+        data_one_q(i) = data(i+start,1); 
+    end
+end
+function stockData = getDataForYear(stocks, dates, startYear)
+%UNTITLED7 Summary of this function goes here
+%   Detailed explanation goes here
+startIndex = find(dates==(startYear-1), 1, 'last');
+endIndex = find(dates==startYear, 1, 'last');
+stockData = zeros(endIndex-startIndex,1);
+for i=1:size(stockData,1)
+    stockData(i,1) = stocks(startIndex+i-1);
+end
+end
+function [dates, stockData]= getDataFromFile(filename)
+%UNTITLED6 Summary of this function goes here
+%   Detailed explanation goes here
+[numtemp, datetext, rawtemp] = xlsread(filename, 'A:A');
+stockData = xlsread(filename,'F:F');
+numDataPoints = size(datetext,1);
+dates = zeros(numDataPoints-1,1);
+
+for i=2:numDataPoints
+   dates(i,1) =  str2num(datestr(cell2mat(datetext(i,1)),'yyyy'));
+end
+
+for i=2:size(stockData,1)
+    if isnan(stockData(i)) 
+        stockData(i) = stockData(i-1);
+    end
+    
+end
+end
+function r = returnDaily(x)
+i=1;
+while i<length(x)
+    r(i)=(x(i+1)-x(i))/x(i);
+    i=i+1;
+end
+end
+
+
+
+##### SOURCE END #####
+--></body></html>
