@@ -4,14 +4,19 @@ numyear=16;
 per=4;
 s=9;
 
-for i=[1:numyear]
-    for j=[1:per]
-        for k=[1:s]
-            m_v{1,i}{1,j}(1,k)=mean(data_q{1,i}{1,j}(:,k));
-            m_v{1,i}{1,j}(2,k)=cov(data_q{1,i}{1,j}(:,k));
+for i=1:numyear
+    for j=1:per
+        for k=1:s
+            m_v{1,numyear}{1,per}(1,s)=mean(data_q{1,numyear}{1,per}(:,s))
+            m_v{1,numyear}{1,per}(2,s)=cov(data_q{1,numyear}{1,per}(:,s))
         end
     end
 end
+
+
+
+
+
 
 %% (1) Volatility
 
