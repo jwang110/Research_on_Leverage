@@ -32,4 +32,4 @@ minVolatility(filename, var);
 
 %% (7) Other factors
 
-%otherfactors
+otherfactors
