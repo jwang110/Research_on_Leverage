@@ -23,10 +23,10 @@ end
 
 figure;
 hold all;
-datetick('x','yyyy');
-
 for i=1:s
-   plot(dates(1,2:end, prox_diff(:,1)));    
+   plot( 
+    
+    
 end
 
 end
