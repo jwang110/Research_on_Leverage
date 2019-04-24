@@ -23,7 +23,7 @@ dimensionalityGraphs(filename, dates);
 minVolatility(filename, var);
 
 %% (4) Efficiency Proximity
-
+proximity(filename, m, var);
 
 %% (5) Chi
 
