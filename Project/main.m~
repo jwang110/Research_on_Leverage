@@ -1,14 +1,15 @@
 %% Project 2: Economic Uncertainties
+
 %% Calculating Mean and Variance
 numyear=16;
 per=4;
 s=9;
 
-for i=1:numyear
-    for j=1:per
-        for k=1:s
-            m_v{1,numyear}{1,per}(1,s)=mean(data_q{1,numyear}{1,per}(:,s))
-            m_v{1,numyear}{1,per}(2,s)=cov(data_q{1,numyear}{1,per}(:,s))
+for i=[1:numyear]
+    for j=[1:per]
+        for k=[1:s]
+            m{1,i}{1,j}(1,k)=mean(data_q{1,i}{1,j}(:,k));
+            var{1,i}{1,j}=cov(data_q{1,i}{1,j});
         end
     end
 end
@@ -18,22 +19,45 @@ end
 
 
 
-%% (1) Volatility
+
+%% (1) Leverage
 
 
-%% (2) Leverage
+%% (2) Dimensionality
 
 
-%% (3) Dimensionality
+%% (3) Minimum Volatility
+numyear=16;
+per=4;
+s=9;
+
+for i=[1:numyear]
+    for j=[1:per]
+        for k=[1:s]
+            mVol{1,i}{1,j}=minVol(var{1,i}{1,j})';
+        end
+    end
+end
+quart=[1,2,3,4];
+asset={'VFINX','VBMFX','VGSLX','VBLTX','VEIEX','VIMSX','Microsoft','Wells Fargo','UPS'};
+for k=[1:s]
+    for j=[1:per]
+        figure
+        hold on
+        title(asset(k), 'fontSize, 
+        plot(quart(j),mVol{1,i}{1,j})
+        
+    end 
+end
+
+%% (4) Efficiency Proximity
 
 
-%% (4) Minimum Volatility
+%% (5) Chi
 
 
-%% (5) Efficiency Proximity
+%% (6) Omega Assymptot
 
+%% (7) Other factors
 
-%% (6) Chi
-
-
-%% (7) Omega Assymptot
+otherfactors

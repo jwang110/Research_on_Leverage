@@ -4,6 +4,7 @@
 numyear=16;
 per=4;
 s=9;
+font=20;
 
 for i=[1:numyear]
     for j=[1:per]
@@ -17,16 +18,16 @@ end
 
 
 
-%% (1) Volatility
 
 
-%% (2) Leverage
+
+%% (1) Leverage
 
 
-%% (3) Dimensionality
+%% (2) Dimensionality
 
 
-%% (4) Minimum Volatility
+%% (3) Minimum Volatility
 numyear=16;
 per=4;
 s=9;
@@ -38,16 +39,29 @@ for i=[1:numyear]
         end
     end
 end
+quart=[1,2,3,4];
+asset={'VFINX','VBMFX','VGSLX','VBLTX','VEIEX','VIMSX','Microsoft','Wells Fargo','UPS'};
 
 
-%% (5) Efficiency Proximity
+%Work in progress...need to make vectors of the quarters per asset
+for k=[1:s]
+    for j=[1:per]
+        figure
+        hold on
+        title(asset(k), 'fontSize',font+4) 
+        plot(quart(j),mVol{1,7}{1,j}(1,s))
+        
+    end 
+end
+
+%% (4) Efficiency Proximity
 
 
-%% (6) Chi
+%% (5) Chi
 
 
-%% (7) Omega Assymptot
+%% (6) Omega Assymptot
 
-%% (8) Other factors
+%% (7) Other factors
 
 otherfactors
