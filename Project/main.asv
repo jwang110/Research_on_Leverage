@@ -22,14 +22,9 @@ load('random_factors_02');
 %% (7) Omega Assymptot
 
 %% (8) Other
-startDate = datenum('1-01-2002');
-endDate = datenum('11-15-2012');
 
 figure;
-hold on;
 plot(SP500(:,3));
-
-datetick('x','mmmyyyy');
 figure;
 hold all;
 plot(BCI(:,3));
@@ -37,12 +32,12 @@ plot(CCI(:,3));
 plot(CLI(:,3));
 figure;
 hold all;
-plot(total_consumer_credit(:,3));
+plot(total_consumer_credit);
 figure;
 hold all;
-plot(unemployment(:,3));
+plot(unemployment);
 figure;
 hold on;
-plot(length_unemployment(:,3));
+plot(length_unemployment);
 
 
