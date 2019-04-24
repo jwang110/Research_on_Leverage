@@ -39,8 +39,14 @@ xcorrelation(6,5) = corr_temp(1,2);
 xcorrelation(5,6) = corr_temp(2,1);
     
 
+corrcoef(SP500(:,3), BCI(:,3));
+corrcoef(SP500(:,3), CCI(:,3));
+corrcoef(SP500(:,3), CLI(:,3));
+corrcoef(SP500(:,3), length_unemployment(:,3));
+corrcoef(SP500(:,3), total_consumer_credit(:,3));
+corrcoef(SP500(:,3), unemployment(:,3));
 
-titles = {'SP 500', 'BCI', 'CCI', 'CLI', 'length_unemployment', 'unemployment', 'total consumer credit'};
+titles = ['SP 500', 'BCI', 'CCI', 'CLI', 'length_unemployment', 'unemployment', 
 
 for i=2:num_var
     figure;
@@ -50,5 +56,26 @@ for i=2:num_var
     yyaxis right
     plot(dates, data_vars(:,i));
     datetick('x','yyyy');
-    title(titles(1,i));
 end
+% 
+% figure;
+% hold all;
+% plot(dates,BCI(:,3));
+% plot(dates,CCI(:,3));
+% plot(dates,CLI(:,3));
+% datetick('x','yyyy');
+% 
+% figure;
+% hold all;
+% plot(dates,total_consumer_credit(:,3));
+% datetick('x','yyyy');
+% 
+% figure;
+% hold all;
+% plot(dates,unemployment(:,3));
+% datetick('x','yyyy');
+% 
+% figure;
+% hold on;
+% plot(dates,length_unemployment(:,3));
+% datetick('x','yyyy');
