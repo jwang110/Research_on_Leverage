@@ -23,26 +23,34 @@ load('random_factors_02');
 
 %% (8) Other
 startDate = datenum('1-01-2002');
-endDate = datenum('11-15-2012');
+endDate = datenum('12-31-2018');
+dates = linspace(startDate,endDate,17*12);
 
 figure;
 hold on;
-plot(SP500(:,3));
+plot(dates, SP500(:,3));
+datetick('x','yyyy');
 
-datetick('x','mmmyyyy');
 figure;
 hold all;
-plot(BCI(:,3));
-plot(CCI(:,3));
-plot(CLI(:,3));
+plot(dates,BCI(:,3));
+plot(dates,CCI(:,3));
+plot(dates,CLI(:,3));
+datetick('x','yyyy');
+
 figure;
 hold all;
-plot(total_consumer_credit(:,3));
+plot(dates,total_consumer_credit(:,3));
+datetick('x','yyyy');
+
 figure;
 hold all;
-plot(unemployment(:,3));
+plot(dates,unemployment(:,3));
+datetick('x','yyyy');
+
 figure;
 hold on;
-plot(length_unemployment(:,3));
+plot(dates,length_unemployment(:,3));
+datetick('x','yyyy');
 
 
