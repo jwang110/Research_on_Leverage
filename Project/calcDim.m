@@ -1,7 +1,7 @@
 function dim = calcDim(data, cutOff)
 %UNTITLED20 Summary of this function goes here
 %   Detailed explanation goes here
-eigenvalues = eigs(cov(data));
+eigenvalues = sort(eig(cov(data)), 'descend');
 eigenvalues = eigenvalues/eigenvalues(1);
 dim = 1;
 flag =1;
