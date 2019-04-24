@@ -1,5 +1,6 @@
 %% Project 2: Economic Uncertainties
-filename = 'data_month_2002.mat';
+clear all;
+filename = 'data_quart_2002.mat';
 load(filename);
 numyear=size(data,2);
 per=size(data{1,1},2);
@@ -31,4 +32,4 @@ minVolatility(filename, var);
 
 %% (7) Other factors
 
-otherfactors
+%otherfactors
