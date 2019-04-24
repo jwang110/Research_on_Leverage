@@ -1,5 +1,5 @@
 %% Project 2: Economic Uncertainties
-<<<<<<< HEAD
+
 %% Calculating Mean and Variance
 numyear=16;
 per=4;
@@ -8,16 +8,15 @@ s=9;
 for i=[1:numyear]
     for j=[1:per]
         for k=[1:s]
-            m_v{1,i}{1,j}(1,k)=mean(data_q{1,i}{1,j}(:,k));
-            m_v{1,i}{1,j}(2,k)=cov(data_q{1,i}{1,j}(:,k));
+            m{1,i}{1,j}(1,k)=mean(data_q{1,i}{1,j}(:,k));
+            var{1,i}{1,j}=cov(data_q{1,i}{1,j});
         end
     end
 end
 
-=======
 
-%
->>>>>>> 31417ff4fb0ef61ca048f26a45bf33ba26006242
+
+
 %% (1) Volatility
 
 
@@ -28,6 +27,17 @@ end
 
 
 %% (4) Minimum Volatility
+numyear=16;
+per=4;
+s=9;
+
+for i=[1:numyear]
+    for j=[1:per]
+        for k=[1:s]
+            mVol{1,i}{1,j}=minVol(var{1,i}{1,j})';
+        end
+    end
+end
 
 
 %% (5) Efficiency Proximity
