@@ -1,0 +1,33 @@
+function dim = calcDim(data, cutOff)
+%UNTITLED20 Summary of this function goes here
+%   Detailed explanation goes here
+
+eigenvalues = zeros(5,124);
+eigenvalues_norm = zeros(5,124);
+cell_data = {data_87, data_88, data_89, data_90, data_91, data_92, data_93, data_94, data_95, data_96, data_97, data_98, data_99, data_00, data_01, data_02, data_03, data_04, data_05, data_06, data_07, data_08, data_09, data_10, data_11, data_12, data_13, data_14, data_15, data_16, data_17, data_18};
+years = zeros(1,124);
+
+for i=1:4:size(eigenvalues,2)-3
+    for j=0:3
+        eigenvalues(:,i+j) = calcEig(cell2mat(cell_data((i-1)/4+1)),j);
+        years(1,i+j) = (1987+(i-1)/4)+j*.25;
+    end
+end
+
+
+for i=1:size(eigenvalues,2)
+    eigenvalues_norm(:,i) = eigenvalues(:,i)/eigenvalues(1,i);
+end
+end
+
+    dim = 1;
+    flag =1;
+    for i=2:length(eigs)
+        if(eigs(i)> cutOff && flag) 
+            dim = dim+1;
+        else
+           flag = 0; 
+        end
+    end
+end
+
