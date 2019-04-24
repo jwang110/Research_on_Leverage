@@ -1,0 +1,39 @@
+%% Project 2: Economic Uncertainties
+%% Calculating Mean and Variance
+numyear=16;
+per=4;
+s=9;
+
+for i=1:numyear
+    for j=1:per
+        for k=1:s
+            m_v{1,numyear}{1,per}(1,s)=mean(data_q{1,numyear}{1,per}(:,s))
+            m_v{1,numyear}{1,per}(2,s)=cov(data_q{1,numyear}{1,per}(:,s))
+        end
+    end
+end
+
+
+
+
+
+
+%% (1) Volatility
+
+
+%% (2) Leverage
+
+
+%% (3) Dimensionality
+
+
+%% (4) Minimum Volatility
+
+
+%% (5) Efficiency Proximity
+
+
+%% (6) Chi
+
+
+%% (7) Omega Assymptot
