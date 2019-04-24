@@ -1,4 +1,5 @@
 %% Project 2: Economic Uncertainties
+<<<<<<< HEAD
 %% Calculating Mean and Variance
 numyear=16;
 per=4;
@@ -13,6 +14,10 @@ for i=[1:numyear]
     end
 end
 
+=======
+
+%
+>>>>>>> 31417ff4fb0ef61ca048f26a45bf33ba26006242
 %% (1) Volatility
 
 
@@ -32,3 +37,7 @@ end
 
 
 %% (7) Omega Assymptot
+
+%% (8) Other factors
+
+otherfactors

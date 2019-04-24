@@ -1,5 +1,5 @@
 clear all;
-year = '1995';
+year = '2002';
 load(strcat('data_',year,'.mat'));
 
 num_stocks = size(data,2);

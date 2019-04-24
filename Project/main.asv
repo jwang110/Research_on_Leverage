@@ -1,0 +1,43 @@
+%% Project 2: Economic Uncertainties
+load('random_factors_02');
+%
+%% (1) Volatility
+
+
+%% (2) Leverage
+
+
+%% (3) Dimensionality
+
+
+%% (4) Minimum Volatility
+
+
+%% (5) Efficiency Proximity
+
+
+%% (6) Chi
+
+
+%% (7) Omega Assymptot
+
+%% (8) Other
+
+figure;
+plot(SP500(:,3));
+figure;
+hold all;
+plot(BCI(:,3));
+plot(CCI(:,3));
+plot(CLI(:,3));
+figure;
+hold all;
+plot(total_consumer_credit);
+figure;
+hold all;
+plot(unemployment);
+figure;
+hold on;
+plot(length_unemployment);
+
+
