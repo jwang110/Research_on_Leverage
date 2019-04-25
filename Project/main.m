@@ -27,10 +27,10 @@ end
 for i=[1:numyear]
     for j=[1:per]
         for k=[1:s]
-            [a b c]=param(var{1,i}{1,j}, m{1,i}{1,j}(1,k));
-            mark{1,i}{1,j}(1,k)=a;
-            mark{1,i}{1,j}(2,k)=b;
-            mark{1,i}{1,j}(3,k)=c;
+            [a b c]=param(var{1,i}{1,j}, m{1,i}{1,j});
+            mark{1,i}{1,j}(1,1)=a;
+            mark{1,i}{1,j}(2,1)=b;
+            mark{1,i}{1,j}(3,1)=c;
         end
     end
 end
@@ -51,7 +51,6 @@ for i=[1:numyear]
     end
 end
 quart=[1,2,3,4];
-asset={'VFINX','VBMFX','VGSLX','VBLTX','VEIEX','VIMSX','Microsoft','Wells Fargo','UPS'};
 
 
 %Work in progress...need to make vectors of the quarters per asset
