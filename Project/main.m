@@ -86,6 +86,24 @@ figure;
 hold on;
 plot(dates(1,2:end),mV_diff(:,1)); 
 title(strcat('min vol change VFINX ', m_or_q, '. ', year));
+datetick('x','yyyy');
+
+figure;
+hold on;
+plot(dates(1,1:end),mV_matrix(:,1)); 
+title(strcat('min vol VFINX ', m_or_q, '. ', year));
+datetick('x','yyyy');
+
+
+for k=[1:s]
+   figure
+   hold on;
+   title(['Minimum Volatility' labels(s)])
+   plot(dates(1,:), mV_matrix(:,k))
+   datetick('x','yyyy');
+   xlabel('Years')
+   ylabel('Years')
+end
 
 %% (4) Efficiency Proximity
 
@@ -93,6 +111,7 @@ proximity(dates, m, var, m_or_q, year);
 
 
 %% (5) Chi
+
 
 
 
