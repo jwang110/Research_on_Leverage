@@ -34,11 +34,15 @@ end
 
 figure;
 hold on;
-yyaxis left
 plot(dates, prox(:,1));
-yyaxis right
+datetick('x','yyyy');
+title('VFINX proximity');
+
+figure;
+hold on;
 plot(dates(1,2:end), prox_diff(:,1));
 datetick('x','yyyy');
+title('VFINX delta proximity');
 
 end
 

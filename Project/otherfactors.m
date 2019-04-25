@@ -52,3 +52,13 @@ for i=2:num_var
     datetick('x','yyyy');
     title(titles(1,i));
 end
+
+figure;
+grid on;
+hold on;
+yyaxis left
+plot(dates_other, data_vars(:,1));
+yyaxis right
+plot(dates_other(1,1:end-20), interest(:,3));
+datetick('x','yyyy');
+title('interest');
