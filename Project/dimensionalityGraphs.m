@@ -1,16 +1,20 @@
-function  dimensionalityGraphs(filename, dates)
+function  dimensionalityGraphs(filename, dates, ABOnlyFlag)
 %UNTITLED9 Summary of this function goes here
 %   Detailed explanation goes here
 load(filename);
 numyear=size(data,2);
 per=size(data{1,1},2);
 s=size(data{1,1}{1,1},2);
-if (s==16)
-    num_asset = 6;
+
+if (ABOnlyFlag)
+    if (s==16)
+        num_asset = 6;
+    else
+        num_asset = 4;
+    end
 else
-    num_asset = 4;
+    num_asset = s;
 end
-num_asset = s;
 
 dim_avg = zeros(1,numyear*per);
 dim_avg_roll = zeros(1,numyear*per);
@@ -93,24 +97,15 @@ dim_avg_roll = dim_avg_roll./(counter);
 
 figure;
 hold on;
-yyaxis left
-plot(dates, dim_avg_large)
-yyaxis right
-plot(dates, dim_avg_roll)
-datetick('x','yyyy');
-title('largest');
-
-figure;
-hold on;
 plot(dates, dim_avg_large)
 datetick('x','yyyy');
-title('avg largest');
+title(strcat('avg largest', ABOnlyFlag*' AB only'));
 
 figure;
 hold on;
 plot(dates, dim_avg_roll)
 datetick('x','yyyy');
-title('avg rolling');
+title(strcat('avg rolling', ABOnlyFlag*' AB only'));
 % 
 % 
 % figure;
@@ -120,15 +115,24 @@ title('avg rolling');
 % title('ratio');
 
 dim_diff = zeros(1, length(dim_avg_large)-1);
+dim_diff_roll = zeros(1, length(dim_avg_roll)-1);
 for i=2:length(dim_avg_large)
     dim_diff(i-1) = dim_avg_large(i)-dim_avg_large(i-1);
+    dim_diff_roll(i-1) = dim_avg_roll(i)-dim_avg_roll(i-1);
 end
 
-% figure;
-% hold on;
-% plot(dates(1,2:end), dim_diff);
-% datetick('x','yyyy');
-% title('dim change');
+figure;
+hold on;
+plot(dates(1,2:end), dim_diff);
+datetick('x','yyyy');
+title(strcat('dim change largest', ABOnlyFlag*' AB only'));
+
+figure;
+hold on;
+plot(dates(1,2:end), dim_diff);
+datetick('x','yyyy');
+title(strcat('dim change rolling', ABOnlyFlag*' AB only'));
+
 
 % figure;
 % hold all;
