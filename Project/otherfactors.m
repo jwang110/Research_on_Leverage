@@ -1,8 +1,8 @@
 load('random_factors_95');
 
-startDate = datenum('1-01-1995');
-endDate = datenum('12-31-2018');
-dates = linspace(startDate,endDate,24*12);
+startDate_other = datenum('1-01-1995');
+endDate_other = datenum('12-31-2018');
+dates_other = linspace(startDate_other,endDate_other,24*12);
 
 data_vars = [SP500(:,3), BCI(:,3), CCI(:,3), CLI(:,3), length_unemployment(:,3), unemployment(:,3), total_consumer_credit(:,3)];
 num_var = size(data_vars,2);
@@ -46,9 +46,9 @@ for i=2:num_var
     figure;
     hold on;
     yyaxis left
-    plot(dates, data_vars(:,1));
+    plot(dates_other, data_vars(:,1));
     yyaxis right
-    plot(dates, data_vars(:,i));
+    plot(dates_other, data_vars(:,i));
     datetick('x','yyyy');
     title(titles(1,i));
 end

@@ -1,4 +1,5 @@
 %% Project 2: Economic Uncertainties
+tic
 clear all;
 filename = 'data_quart_2002.mat';
 load(filename);
@@ -23,6 +24,7 @@ for i=[1:numyear]
     end
 end
 
+
 %% Calculating Markowitz Parameters
 for i=[1:numyear]
     for j=[1:per]
@@ -39,7 +41,6 @@ end
 
 
 %% (2) Dimensionality
-
 dimensionalityGraphs(filename, dates);
 
 %% (3) Minimum Volatility
@@ -79,12 +80,14 @@ end
 % end
 
 %% (4) Efficiency Proximity
-%proximity(filename, m, var);
+
+proximity(dates, m, var);
+
 
 %% (5) Chi
 
 
 
 %% (6) Other factors
-
 otherfactors
+toc
