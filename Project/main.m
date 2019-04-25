@@ -1,9 +1,9 @@
 %% Project 2: Economic Uncertainties
 tic
 clear all;
-type = 'quart';
+m_or_q = 'quart';
 year = '2002';
-filename = strcat('data_', type, '_', year, '.mat');
+filename = strcat('data_', m_or_q, '_', year, '.mat');
 startDateString = strcat('1-01-',year);
 %filename = 'data_quart_2002.mat';
 load(filename);
@@ -45,8 +45,8 @@ end
 
 
 %% (2) Dimensionality
-dimensionalityGraphs(filename, dates, 1);
-dimensionalityGraphs(filename, dates, 0);
+dimensionalityGraphs(filename, dates, 1, m_or_q, year);
+dimensionalityGraphs(filename, dates, 0, m_or_q, year);
 
 %% (3) Minimum Volatility
 for i=[1:numyear]
@@ -60,33 +60,36 @@ quart=[1,2,3,4];
 
 
 
-mV_matrix=[];
-for k=[1,1]
+mV_matrix=zeros(numyear*per,s);
+for k=[1:s]
     temp_asset=[];
-    for i=[1, numyear]
-        for j=[1,per]
-            temp_asset=[temp_asset, mVol{1,i}{1,j}(k)];
+    for i=[1: numyear]
+        for j=[1:per]
+            temp_asset=[temp_asset, mVol{1,i}{1,j}(1,k)];
         end
     end
-    mV_matrix=[mV_matrix, temp_asset'];
+    mV_matrix(:,k)= temp_asset';
 end
 
 
 
 %Work in progress...need to make vectors of the quarters per asset
-% for k=[1:s]
-%     for j=[1:per]
-%         figure
-%         hold on
-%         title(asset(k), 'fontSize',font+4) 
-%         plot(quart(j),mVol{1,7}{1,j}(1,s))
-%         
-%     end 
-% end
+
+mV_diff = zeros(size(mV_matrix,2)-1,s);
+for k=[1:s]
+    for j=[2:numyear*per]
+        mV_diff(j-1,k) = mV_matrix(j-1,k)-mV_matrix(j,k);
+    end 
+end
+
+figure;
+hold on;
+plot(dates(1,2:end),mV_diff(:,1)); 
+title(strcat('min vol change VFINX ', m_or_q, '. ', year));
 
 %% (4) Efficiency Proximity
 
-proximity(dates, m, var);
+proximity(dates, m, var, m_or_q, year);
 
 
 %% (5) Chi

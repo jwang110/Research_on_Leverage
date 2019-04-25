@@ -1,6 +1,9 @@
-load('random_factors_95');
+year = '1995';
+randomfilename = strcat('random_factors_', year);
+load(randomfilename);
 
-startDate_other = datenum('1-01-1995');
+startDateString = strcat('1-01-',year);
+startDate_other = datenum(startDateString);
 endDate_other = datenum('12-31-2018');
 dates_other = linspace(startDate_other,endDate_other,24*12);
 
@@ -50,7 +53,7 @@ for i=2:num_var
     yyaxis right
     plot(dates_other, data_vars(:,i));
     datetick('x','yyyy');
-    title(titles(1,i));
+    title(strcat(titles(1,i), '. ', year));
 end
 
 figure;
@@ -61,4 +64,4 @@ plot(dates_other, data_vars(:,1));
 yyaxis right
 plot(dates_other(1,1:end-20), interest(:,3));
 datetick('x','yyyy');
-title('interest');
+title(strcat('interest', '. ', year));

@@ -1,4 +1,4 @@
-function  dimensionalityGraphs(filename, dates, ABOnlyFlag)
+function  dimensionalityGraphs(filename, dates, ABOnlyFlag, m_or_q, year)
 %UNTITLED9 Summary of this function goes here
 %   Detailed explanation goes here
 load(filename);
@@ -99,13 +99,13 @@ figure;
 hold on;
 plot(dates, dim_avg_large)
 datetick('x','yyyy');
-title(strcat('avg largest', ABOnlyFlag*' AB only'));
+title(strcat('avg largest ', ABOnlyFlag*'AB only ', m_or_q, '. ', year));
 
 figure;
 hold on;
 plot(dates, dim_avg_roll)
 datetick('x','yyyy');
-title(strcat('avg rolling', ABOnlyFlag*' AB only'));
+title(strcat('avg rolling ', ABOnlyFlag*'AB only ', m_or_q, '. ', year));
 % 
 % 
 % figure;
@@ -125,13 +125,13 @@ figure;
 hold on;
 plot(dates(1,2:end), dim_diff);
 datetick('x','yyyy');
-title(strcat('dim change largest', ABOnlyFlag*' AB only'));
+title(strcat('dim change largest ', ABOnlyFlag*'AB only ', m_or_q, ' ', year));
 
 figure;
 hold on;
 plot(dates(1,2:end), dim_diff);
 datetick('x','yyyy');
-title(strcat('dim change rolling', ABOnlyFlag*' AB only'));
+title(strcat('dim change rolling ', ABOnlyFlag*'AB only ', m_or_q, ' ', year));
 
 
 % figure;

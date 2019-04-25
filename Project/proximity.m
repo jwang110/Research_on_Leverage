@@ -1,4 +1,4 @@
-function proximity(dates, m, var)
+function proximity(dates, m, var, m_or_q, year)
 %UNTITLED Summary of this function goes here
 %   Detailed explanation goes here
 numyear=size(var,2);
@@ -36,13 +36,13 @@ figure;
 hold on;
 plot(dates, prox(:,1));
 datetick('x','yyyy');
-title('VFINX proximity');
+title(strcat('VFINX proximity ', m_or_q, '. ', year));
 
 figure;
 hold on;
 plot(dates(1,2:end), prox_diff(:,1));
 datetick('x','yyyy');
-title('VFINX delta proximity');
+title(strcat('VFINX delta proximity ', m_or_q, '. ', year));
 
 end
 
