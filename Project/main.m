@@ -1,7 +1,7 @@
 %% Project 2: Economic Uncertainties
 tic
 clear all;
-m_or_q = 'quart';
+m_or_q = 'month';
 year = '2002';
 filename = strcat('data_', m_or_q, '_', year, '.mat');
 startDateString = strcat('1-01-',year);

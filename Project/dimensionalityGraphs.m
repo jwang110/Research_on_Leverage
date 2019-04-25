@@ -87,7 +87,7 @@ end
 dim_avg = dim_avg/(3*counter);
 dim_avg_large = dim_avg_large/(counter);
 dim_avg_ratio = dim_avg_ratio/(counter);
-dim_avg_roll = dim_avg_roll./(counter);
+dim_avg_roll = dim_avg_roll/(counter);
 % 
 % figure;
 % hold on;
