@@ -23,6 +23,17 @@ for i=[1:numyear]
     end
 end
 
+%% Calculating Markowitz Parameters
+for i=[1:numyear]
+    for j=[1:per]
+        for k=[1:s]
+            [a b c]=param(var{1,i}{1,j}, m{1,i}{1,j}(1,k));
+            mark{1,i}{1,j}(1,k)=a;
+            mark{1,i}{1,j}(2,k)=b;
+            mark{1,i}{1,j}(3,k)=c;
+        end
+    end
+end
 
 %% (1) Leverage
 
