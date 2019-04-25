@@ -70,8 +70,7 @@ quart=[1,2,3,4];
 %% (5) Chi
 
 
-%% (6) Omega Assymptot
 
-%% (7) Other factors
+%% (6) Other factors
 
 otherfactors
