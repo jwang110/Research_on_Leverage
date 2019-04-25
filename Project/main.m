@@ -53,6 +53,20 @@ end
 quart=[1,2,3,4];
 
 
+
+mV_matrix=[];
+for k=[1,1]
+    temp_asset=[];
+    for i=[1, numyear]
+        for j=[1,per]
+            temp_asset=[temp_asset, mVol{1,i}{1,j}(k)];
+        end
+    end
+    mV_matrix=[mV_matrix, temp_asset'];
+end
+
+
+
 %Work in progress...need to make vectors of the quarters per asset
 % for k=[1:s]
 %     for j=[1:per]
