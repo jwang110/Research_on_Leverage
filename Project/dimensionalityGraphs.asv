@@ -5,12 +5,6 @@ load(filename);
 numyear=size(data,2);
 per=size(data{1,1},2);
 s=size(data{1,1}{1,1},2);
-if (s==16)
-    num_asset = 6;
-else
-    num_asset = 4;
-end
-num_asset = s;
 
 dim_avg = zeros(1,numyear*per);
 dim_avg_roll = zeros(1,numyear*per);
@@ -18,8 +12,7 @@ dim_avg_large = zeros(1,numyear*per);
 dim_avg_ratio = zeros(1,numyear*per);
 counter = 0;
 
-x=.09;
-for k=x:.0001:x+.001
+for k=.1:.005:.2
     index =1;
     dim = zeros(1,numyear*per);
     dim_roll = zeros(1,numyear*per);
@@ -27,7 +20,7 @@ for k=x:.0001:x+.001
     eig_second = zeros(1,numyear*per);
     for i=1:numyear
         for j=1:per
-            rolling = data{1,i}{1,j}(:,1:num_asset);
+            rolling = data{1,i}{1,j};
             flag3 = (3+j<per+1);
             flag2 = (2+j<per+1);
             flag1 = (1+j<per+1);
@@ -38,7 +31,7 @@ for k=x:.0001:x+.001
             j_2 = (j+2)*flag2+ ~flag2 + ~flag1;
             j_3 = (j+3)*flag3+ ~flag3 + ~flag2 + ~flag1;
             if((i+1)<numyear+1 && flag1 && flag2 && flag3 )
-                temp = [data{1,i_1}{1,j_1}(:,1:num_asset);data{1,i_2}{1,j_2}(:,1:num_asset);data{1,i_3}{1,j_3}(:,1:num_asset)];
+                temp = [data{1,i_1}{1,j_1};data{1,i_2}{1,j_2};data{1,i_3}{1,j_3}];
                 rolling = vertcat(rolling, temp);
             end
 %             
@@ -61,8 +54,8 @@ for k=x:.0001:x+.001
 %                     end
 %                 end
 %             end
-            [dim_largest, dim_ratio_method] = calcDim(data{1,i}{1,j}(:,1:num_asset),k);
-            [dim_largest_roll, dim_ratio_method_roll] = calcDim(rolling,k);
+            [dim_largest, dim_ratio_method] = calcDim(data{1,i}{1,j},k);
+            [dim_largest_roll, dim_ratio_method_roll] = calcDim(data{1,i}{1,j},k);
             dim(1,index) = dim_largest;
             dim_ratio(1,index) = dim_ratio_method;
             dim_roll(1,index) = dim_largest_roll;
@@ -72,18 +65,26 @@ for k=x:.0001:x+.001
             eig_second(1,index) = eigenvalues(2);
             index = index+1;
         end
-    end  
+    end
+%     figure;
+%     hold on;
+%     plot(dates, dim(1,:));
+%     plot (dates, dim_ratio(1,:));
+%     title(strcat('ratio method ', num2str(k)));
+%     legend('largest method', 'ratio method');
+%     datetick('x','yyyy');
+%     
     counter = counter+1;
-    dim_avg(1,:) = dim_avg(1,:) + dim(1,:) + dim_ratio(1,:)+dim_roll(1,:);
+    dim_avg(1,:) = dim_avg(1,:) + dim(1,:) + dim_ratio(1,:);
     dim_avg_large(1,:) = dim_avg_large(1,:) + dim(1,:);
     dim_avg_ratio(1,:) = dim_avg_ratio(1,:) + dim_ratio(1,:);
-    dim_avg_roll(1,:) = dim_avg_roll(1,:) + dim_roll(1,:);
+    dim_avg_roll(1,:) = dim_avg_ratio(1,:) + dim_roll(1,:);
 end
 
-dim_avg = dim_avg/(3*counter);
+dim_avg = dim_avg/(2*counter);
 dim_avg_large = dim_avg_large/(counter);
 dim_avg_ratio = dim_avg_ratio/(counter);
-dim_avg_roll = dim_avg_roll./(counter);
+dim_avg_roll = dim_avg_roll/(counter);
 % 
 % figure;
 % hold on;
@@ -102,15 +103,21 @@ title('largest');
 
 figure;
 hold on;
+yyaxis left
 plot(dates, dim_avg_large)
+yyaxis right
+plot(dates, dim_avg_roll)
 datetick('x','yyyy');
-title('avg largest');
+title('largest');
 
 figure;
 hold on;
+yyaxis left
+plot(dates, dim_avg_large)
+yyaxis right
 plot(dates, dim_avg_roll)
 datetick('x','yyyy');
-title('avg rolling');
+title('largest');
 % 
 % 
 % figure;
