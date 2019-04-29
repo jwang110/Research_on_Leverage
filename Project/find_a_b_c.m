@@ -7,4 +7,3 @@ b = ones(1,length(V))*mldivide(V, M);
 c = (M.')*mldivide(V,M);
 ABC = [a, b, c];
 end
-
