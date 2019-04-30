@@ -9,8 +9,6 @@ font=20;
 prox = zeros(numyear*per, 1);
 index= 1;
 
-
-
 for i=1:numyear
     for j=1:per
         temp = calcProx(var{1,i}{1,j},m{1,i}{1,j}',s);

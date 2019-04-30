@@ -15,7 +15,7 @@ end
 
 start_year = new_data{1,1}(1,2);
 end_year = new_data{1,1}(end,2);
-num_years = end_year-start_year;
+num_years = end_year-start_year+1;
 
 data_m = cell(1,num_years);
 data_q = cell(1,num_years);

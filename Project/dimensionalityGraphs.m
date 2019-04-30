@@ -141,9 +141,10 @@ title(strcat('dim change rolling ', ABOnlyFlag*'AB only ', m_or_q, ' ', year));
 % end
 % datetick('x','yyyy');
 
-% figure;
-% hold on;
-% plot(dates, eig_second);
-% datetick('x','yyyy');
+figure;
+hold on;
+plot(dates, eig_second);
+datetick('x','yyyy');
+title('second');
 end
 
