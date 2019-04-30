@@ -123,8 +123,6 @@ end
 proximity(dates, m, var, m_or_q, year);
 
 
-%% (5) Chi
-
 
 
 
