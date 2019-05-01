@@ -1,7 +1,7 @@
 %% find_ome(DATA,mu_si_an,day_start,day_end)
-function [ome_all]=find_ome(DATA,day,mu_si_an,day_start,day_end)
+function [ome_all]=find_ome(DATA,mu_si_an,_start,day_end)
 % Find return matrix,r(days*n):
-[length,n]=size(DATA{});
+[length,n]=size(DATA);
 r=zeros(day_end-day_start+1,n);
 for j=1:n
     for i=day_start:day_end;
