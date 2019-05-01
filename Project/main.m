@@ -42,20 +42,7 @@ for i=[1:numyear]
 end
 
 %% (1) Leverage
-day=[];
-n=1;
-for i=1:numyear
-    for j=1:per
-        measure=size(data{1,i}{1,j});
-        day(1,n)=[measure(1,1)];
-        n=n+1;
-    end
-end
-
-accum_day=[];
-for j=1:length(day)
-    accum_day(j)=sum(day(1:j));
-end
+[rolling_quarters]=find_rolling_quarter(data,numyear,per)
 
 
 
