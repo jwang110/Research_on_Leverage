@@ -51,7 +51,6 @@ for i=1:num
         n=n+1;
     end
 end
-%% 
 
 accum_day=[];
 for j=1:length(day)
