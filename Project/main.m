@@ -69,8 +69,7 @@ end
 
 
 %% (2) Dimensionality
-dimensionalityGraphs(filename, dates, 1, m_or_q, year);
-dimensionalityGraphs(filename, dates, 0, m_or_q, year);
+dimensionalityGraphs(dates);
 
 %% (3) Minimum Volatility
 for i=[1:numyear]
