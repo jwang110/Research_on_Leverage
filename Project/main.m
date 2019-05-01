@@ -44,8 +44,8 @@ end
 %% (1) Leverage
 day=[];
 n=1;
-for i=1:num
-    for j=1:12
+for i=1:numyear
+    for j=1:per
         measure=size(data{1,i}{1,j})
         day(1,n)=[measure(1,1)]
         n=n+1;
