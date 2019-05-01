@@ -46,8 +46,8 @@ day=[];
 n=1;
 for i=1:numyear
     for j=1:per
-        measure=size(data{1,i}{1,j})
-        day(1,n)=[measure(1,1)]
+        measure=size(data{1,i}{1,j});
+        day(1,n)=[measure(1,1)];
         n=n+1;
     end
 end
