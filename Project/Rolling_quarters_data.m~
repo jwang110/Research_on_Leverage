@@ -1,6 +1,0 @@
-load('data_quart_2002.mat');
-
-numyear=size(data,2);
-per=size(data{1,1},2);
-s=size(data{1,1}{1,1},2);
-all_quarter_data=

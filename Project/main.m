@@ -42,18 +42,20 @@ for i=[1:numyear]
 end
 
 %% (1) Leverage
-[rolling_quarters]=find_rolling_quarter(data,numyear,per)
-
-
-
-
-
-
-
-
-
-
-
+load('annual_rate_quart.mat', 'mu_si_an')
+% find the rolling quarter data from 2002 to 2018
+[rolling_quarter]=Rolling_quarters_data(numyear,per);
+num_rolling=size(rolling_quarter,2);
+ome_quarter=[];
+sharp_ratio=[];
+for i=1:num_rolling
+[ome,nu_st]=find_ome(rolling_quarter{1,i},mu_si_an(i,1));
+ome_quarter=[ome_quarter;ome];
+sharp_ratio=[sharp_ratio,nu_st]
+end
+year=1:65;
+figure
+plot(year,ome_quarter)
 
 %% (2) Dimensionality
 dimensionalityGraphs(dates);
@@ -123,6 +125,11 @@ proximity(dates, m, var, m_or_q, year);
 
 
 
-%% (6) Other factors
-otherfactors
+%% (6) Sharp Ratio
+% calculated the shrp ratio in the leverage section
+sharp_ratio;
+figure
+plot(year,sharp_ratio)
+%% 
+
 toc
