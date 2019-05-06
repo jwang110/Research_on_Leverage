@@ -18,28 +18,8 @@ endDate = datenum('12-31-2018');
 dates = linspace(startDate,endDate,numyear*per);
 
 
-%% Calculating Mean and Variance
-for i=[1:numyear]
-    for j=[1:per]
-        for k=[1:s]
-            m{1,i}{1,j}(1,k)=mean(data{1,i}{1,j}(:,k));
-            var{1,i}{1,j}=cov(data{1,i}{1,j});
-        end
-    end
-end
 
 
-%% Calculating Markowitz Parameters
-for i=[1:numyear]
-    for j=[1:per]
-        for k=[1:s]
-            [a b c]=param(var{1,i}{1,j}, m{1,i}{1,j});
-            mark{1,i}{1,j}(1,1)=a;
-            mark{1,i}{1,j}(2,1)=b;
-            mark{1,i}{1,j}(3,1)=c;
-        end
-    end
-end
 
 %% (1) Leverage
 load('annual_rate_quart.mat', 'mu_si_an')
@@ -137,32 +117,59 @@ toc
 
 %% Finding Best Chi
 
-% for i=[1:numyear]
-%     for j=[1:per]
-%         for k=[1:s]
-%             %Calculating Squiggly returns
+% Calculating Mean and Variance
+for i=[1:numyear]
+    for j=[1:per]
+        for k=[1:s]
+            m{1,i}{1,j}(1,k)=mean(data{1,i}{1,j}(:,k));
+            var{1,i}{1,j}=cov(data{1,i}{1,j});
+        end
+    end
+end
+
+
+% Calculating Markowitz Parameters
+for i=[1:numyear]
+    for j=[1:per]
+        for k=[1:s]
+            [a b c]=param(var{1,i}{1,j}, m{1,i}{1,j});
+            mark{1,i}{1,j}(1,1)=a;
+            mark{1,i}{1,j}(2,1)=b;
+            mark{1,i}{1,j}(3,1)=c;
+        end
+    end
+end
+
+
+
+
+for i=[1:numyear]
+    for j=[1:per]
+        for k=[1:s]
+            %Calculating Squiggly returns
 %             r=(data{1,i}{1,j}(:,k));
 %             u=(i,j);
 %             rTilda=(1/(1+u))*(r-(u*ones(length(r),1)));
 %             rT{1,i}{1,j}(:,k)=rTilda;
-%             
-%             %Calculating squiggly mean and variance
-%              mT{1,i}{1,j}(1,k)=mean(rT{1,i}{1,j}(:,k));
-%              varT{1,i}{1,j}=cov(rT{1,i}{1,j});
-%         end
-%     end
-% end
-% 
-% for i=[1:numyear]
-%     for j=[1:per]
-%         for k=[1:s]
-%             chi=[];
-%             sharpe_temp=u(i,j);
-%             mean_temp=mT{1,i}{1,j}(1,k);
-%             var_temp=varT{1,i}{1,j};
-%             f=chiAlloc(chi,sharpe_temp , mean_temp, var_temp)
-%             
-%             
-%         end
-%     end
-% end
+            
+            %Calculating squiggly mean and variance
+             mT{1,i}{1,j}(1,k)=( 1/(1+mu(per, numyear))) * (m{1,i}{1,j}{
+             varT{1,i}{1,j}=cov(rT{1,i}{1,j});
+        end
+    end
+end
+
+for i=[1:numyear]
+    for j=[1:per]
+        for k=[1:s]
+            chi=[];
+            sharpe_temp=u(i,j);
+            mean_temp=mT{1,i}{1,j}(1,k);
+            var_temp=varT{1,i}{1,j};
+            f=chiAlloc(chi,sharpe_temp , mean_temp, var_temp)
+            
+            
+        end
+    end
+end
+
