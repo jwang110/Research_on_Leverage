@@ -15,3 +15,7 @@ for k=1:(size(all_quarter_data,2)-3)
     rolling_quarter{1,k}=[all_quarter_data{1,k};all_quarter_data{1,k+1};...
         all_quarter_data{1,k+3};all_quarter_data{1,k+3}];
 end
+rolling_quarter{1,66}=[all_quarter_data{1,66};all_quarter_data{1,67};...
+    all_quarter_data{1,68};];
+rolling_quarter{1,67}=[all_quarter_data{1,67};all_quarter_data{1,68};];
+rolling_quarter{1,68}=[all_quarter_data{1,68};];
