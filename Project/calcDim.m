@@ -6,7 +6,7 @@ eigenvalues = eigenvalues/eigenvalues(1);
 
 log_diff = zeros(1,length(eigenvalues-1));
 for i=2:length(eigenvalues)
-    log_diff(i-1) = log(eigenvalues(i)-eigenvalues(i-1));
+    log_diff(i-1) = log(eigenvalues(i))-log(eigenvalues(i-1));
 end
 
 [max_diff, max_index] = max(log_diff);

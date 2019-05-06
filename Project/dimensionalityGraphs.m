@@ -1,7 +1,12 @@
-function  dimensionalityGraphs(dates)
+function  dimensionalityGraphs()
 %UNTITLED9 Summary of this function goes here
 %   Detailed explanation goes here
 %load(filename);
+
+startDate = datenum('1-1-2002');
+endDate = datenum('12-31-2018');
+dates = linspace(startDate,endDate,17*4);
+
 load('rolling_quart.mat');
 numyear=size(data,2);
 per=size(data{1,1},2);
@@ -19,7 +24,8 @@ for i=1:numyear
 end
 
 figure;
-plot(dim);
+plot(dates, dim);
+datetick('x','yyyy');
 
 % if (ABOnlyFlag)
 %     if (s==16)

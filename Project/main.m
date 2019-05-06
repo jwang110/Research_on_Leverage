@@ -58,7 +58,7 @@ figure
 plot(year,ome_quarter)
 
 %% (2) Dimensionality
-dimensionalityGraphs(dates);
+%dimensionalityGraphs(dates);
 
 %% (3) Minimum Volatility
 for i=[1:numyear]
