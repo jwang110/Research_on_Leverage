@@ -5,20 +5,17 @@ function  dimensionalityGraphs()
 
 startDate = datenum('1-1-2002');
 endDate = datenum('12-31-2018');
-dates = linspace(startDate,endDate,17*4);
 
 load('rolling_quart.mat');
 numyear=size(data,2);
 per=size(data{1,1},2);
-s=size(data{1,1}{1,1},2);
-
+dates = linspace(startDate,endDate,numyear*per);
 dim = zeros(1,numyear*per);
+
 index = 1;
-figure;
-hold all;
-for i=1:numyear
-    for j=1:per
-        dim(index) = calcDim(data{1,i}{1,j}(:,1:s));
+for i = 1:numyear
+    for j = 1:per
+        dim(1, index) = calcDim(data{1,i}{1,j}, 1/9);
         index = index+1;
     end
 end
@@ -26,6 +23,66 @@ end
 figure;
 plot(dates, dim);
 datetick('x','yyyy');
+
+dim_diff = zeros(1,numyear*per);
+
+for i=2:length(dim)
+     dim_diff(i-1) = dim(i)-dim(i-1);
+%     dim_diff_roll(i-1) = dim_avg_roll(i)-dim_avg_roll(i-1);
+end
+figure;
+plot(dates, dim_diff);
+datetick('x','yyyy');
+
+% for k=x:.0001:x+.001
+%     index = 1;
+%     for i=1:numyear
+%     index =1;
+%         dim(i,index) = calcDim(rolling,k);
+%     index = index+1;
+%     end
+% end
+%     
+%             [dim_largest, dim_ratio_method] = calcDim(data{1,i}{1,j}(:,1:num_asset),k);
+%             [dim_largest_roll, dim_ratio_method_roll] = calcDim(rolling,k);
+%             dim(1,index) = dim_largest;
+%             dim_ratio(1,index) = dim_ratio_method;
+%             dim_roll(1,index) = dim_largest_roll;
+% 
+%             eigenvalues = sort(eig(cov(data{1,i}{1,j})),'descend');
+%             eigenvalues = eigenvalues/eigenvalues(1);
+%             eig_second(1,index) = eigenvalues(2);
+%             index = index+1;
+%         end
+%     end  
+%     counter = counter+1;
+%     dim_avg(1,:) = dim_avg(1,:) + dim(1,:) + dim_ratio(1,:)+dim_roll(1,:);
+%     dim_avg_large(1,:) = dim_avg_large(1,:) + dim(1,:);
+%     dim_avg_ratio(1,:) = dim_avg_ratio(1,:) + dim_ratio(1,:);
+%     dim_avg_roll(1,:) = dim_avg_roll(1,:) + dim_roll(1,:);
+% end
+% 
+% dim_avg = dim_avg/(3*counter);
+% dim_avg_large = dim_avg_large/(counter);
+% dim_avg_ratio = dim_avg_ratio/(counter);
+% dim_avg_roll = dim_avg_roll/(counter);
+% % 
+
+
+% dim = zeros(1,numyear*per);
+% index = 1;
+% figure;
+% hold all;
+% for i=1:numyear
+%     for j=1:per
+%         dim(index) = calcDim(data{1,i}{1,j}(:,1:s));
+%         index = index+1;
+%     end
+% end
+% 
+% figure;
+% plot(dates, dim);
+% datetick('x','yyyy');
 
 % if (ABOnlyFlag)
 %     if (s==16)
