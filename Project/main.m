@@ -51,7 +51,7 @@ sharp_ratio=[];
 for i=1:num_rolling
 [ome,nu_st]=find_ome(rolling_quarter{1,i},mu_si_an(i,1));
 ome_quarter=[ome_quarter;ome];
-sharp_ratio=[sharp_ratio,nu_st]
+sharp_ratio=[sharp_ratio,nu_st];
 end
 year=1:65;
 figure
