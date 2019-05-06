@@ -119,7 +119,7 @@ plot(year,ome_quarter)
 
 %% (4) Efficiency Proximity
 
-proximity(dates, m, var, m_or_q, year);
+%proximity(dates, m, var, m_or_q, year);
 
 
 
