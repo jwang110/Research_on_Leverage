@@ -137,32 +137,32 @@ toc
 
 %% Finding Best Chi
 
-for i=[1:numyear]
-    for j=[1:per]
-        for k=[1:s]
-            %Calculating Squiggly returns
-            r=(data{1,i}{1,j}(:,k));
-            u=(i,j);
-            rTilda=(1/(1+u))*(r-(u*ones(length(r),1)));
-            rT{1,i}{1,j}(:,k)=rTilda;
-            
-            %Calculating squiggly mean and variance
-             mT{1,i}{1,j}(1,k)=mean(rT{1,i}{1,j}(:,k));
-             varT{1,i}{1,j}=cov(rT{1,i}{1,j});
-        end
-    end
-end
-
-for i=[1:numyear]
-    for j=[1:per]
-        for k=[1:s]
-            chi=[];
-            sharpe_temp=u(i,j);
-            mean_temp=mT{1,i}{1,j}(1,k);
-            var_temp=varT{1,i}{1,j};
-            f=chiAlloc(chi,sharpe_temp , mean_temp, var_temp)
-            
-            
-        end
-    end
-end
+% for i=[1:numyear]
+%     for j=[1:per]
+%         for k=[1:s]
+%             %Calculating Squiggly returns
+%             r=(data{1,i}{1,j}(:,k));
+%             u=(i,j);
+%             rTilda=(1/(1+u))*(r-(u*ones(length(r),1)));
+%             rT{1,i}{1,j}(:,k)=rTilda;
+%             
+%             %Calculating squiggly mean and variance
+%              mT{1,i}{1,j}(1,k)=mean(rT{1,i}{1,j}(:,k));
+%              varT{1,i}{1,j}=cov(rT{1,i}{1,j});
+%         end
+%     end
+% end
+% 
+% for i=[1:numyear]
+%     for j=[1:per]
+%         for k=[1:s]
+%             chi=[];
+%             sharpe_temp=u(i,j);
+%             mean_temp=mT{1,i}{1,j}(1,k);
+%             var_temp=varT{1,i}{1,j};
+%             f=chiAlloc(chi,sharpe_temp , mean_temp, var_temp)
+%             
+%             
+%         end
+%     end
+% end
