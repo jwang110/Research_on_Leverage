@@ -35,6 +35,7 @@ sharp_ratio=[sharp_ratio,sharp];
 end
 figure
 plot(dates2,ome_quarter)
+title('leverage');
 datetick('x', 'yyyy');
 % reshape the leverage ratio and the sharpe ratio
 ome_quarter_reshape=reshape(ome_quarter,[4,17]);
@@ -112,6 +113,7 @@ dates2 = linspace(startDate,endDate,numyear*4);
 figure
 plot(dates2,sharp_ratio)
 datetick('x', 'yyyy');
+title('sharpe ratio')
 % reshape the sharpe ratio
 sharpe_ratio_reshape=reshape(sharp_ratio,[4,17]);
 %% 
