@@ -1,5 +1,5 @@
 %% find_ome(DATA,mu_si_an,day_start,day_end)
-function [ome_all,sharp]=find_ome(DATA,mu_si_an)
+function [ome_st,sharp]=find_ome(DATA,mu_si_an)
 % Find mean variance vector, m(n*1):
 n=9;
 m=[];
@@ -43,6 +43,5 @@ elseif mu_mv>mu_si
 else 
     ome_st=0;ome_ct=0;f_st=zeros(n,1);f_ct=zeros(n,1);
 end
-ome_all=[ome_mv,ome_st,ome_ct];
 sharp=(mu_st-mu_si)/sig_st;
 end
