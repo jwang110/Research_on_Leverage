@@ -7,13 +7,13 @@ function [c, M]=chiAlloc( sR, m, V)
     %Partitioning Chi, right now i have it set to go from [-sharp ratio,
     %sharpe ratio] with step size n
     mini=0;
-    maxi=max(-1*sR, sR);
+    maxi=sR;
     n=100;
     chi_temp = zeros(n+1,1);
     for i=1:n+1
         chi_temp(i)=mini + ((i-1) * (maxi-mini)/n);
     end
-    chi = chi_temp(2:end-1,:);
+    chi = chi_temp(2:end-1,:)
     % Finding F* : this will give us a matrix with with 9 rows (for each
     % asset)
     f=ones(9,length(chi));
@@ -25,6 +25,7 @@ function [c, M]=chiAlloc( sR, m, V)
     %Find best F* : dot F* with returns and which ever returns the most
     %money is the best allocations. Then I find the index related with the
     %best F*
+    sum = 0;
     money=zeros((length(chi)),1);
     for i=1:(length(chi))
         money(i)=f(:,i)'*m';

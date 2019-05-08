@@ -16,6 +16,7 @@ font=20;
 startDate = datenum(startDateString);
 endDate = datenum('12-31-2018');
 dates = linspace(startDate,endDate,numyear*per);
+chi_dates = linspace(startDate, endDate, numyear);
 
 
 
@@ -29,10 +30,12 @@ load('annual_rate_shifting_quarterly.mat', 'mu_si_an')
 num_rolling=size(rolling_quarter,2);
 ome_quarter=[];
 sharp_ratio=[];
+ome_sharp=[];
 for i=1:num_rolling
-[ome,ome_sharp]=find_ome(rolling_quarter{1,i},mu_si_an(i,1));
+[ome,sharp,omega_sharp]=find_ome(rolling_quarter{1,i},mu_si_an(i,1));
 ome_quarter=[ome_quarter;ome];
-sharp_ratio=[sharp_ratio,sharp];
+sharp_ratio=[sharp_ratio;sharp];
+ome_sharp=[ome_sharp;omega_sharp];
 end
 figure
 plot(dates2,ome_quarter)
@@ -157,8 +160,12 @@ for i=[1:numyear]
             chiOPt{1,i}{1,j}=chi_temp;
             moneyMaxChi{1,i}{1,j}=money_temp;
     end
-    
 end
+
+figure
+hold on
+plot(chi_dates, chiOpt);
+
 
 
 
