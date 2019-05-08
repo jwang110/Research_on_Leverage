@@ -1,4 +1,4 @@
-function [c]=chiAlloc( sR, m, V)
+function [c, M]=chiAlloc( sR, m, V)
     % Finding squiggly m and v
     mTilda= (1/(1+sR))* (m-sR*ones(length(m),1));
     vTilda= (1/(1+sR)^2)*V;
