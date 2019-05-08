@@ -1,7 +1,7 @@
-function [c, M]=chiAlloc( sR, m, V)
+function [c, M, I]=chiAlloc( sR, m, V, rF)
     % Finding squiggly m and v
-    mTilda= (1/(1+sR))* (m-sR*ones(length(m),1)');
-    vTilda= (1/(1+sR)^2)*V;
+    mTilda= (1/(1+rF))* (m-rF*ones(length(m),1)');
+    vTilda= (1/(1+rF)^2)*V;
 
 
     %Partitioning Chi, right now i have it set to go from [-sharp ratio,

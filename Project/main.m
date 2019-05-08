@@ -138,17 +138,17 @@ for i=[1:numyear]
 end
 
 
-% Calculating Markowitz Parameters
-for i=[1:numyear]
-    for j=[1:per]
-        for k=[1:s]
-            [a b c]=param(var{1,i}{1,j}, m{1,i}{1,j});
-            mark{1,i}{1,j}(1,1)=a;
-            mark{1,i}{1,j}(2,1)=b;
-            mark{1,i}{1,j}(3,1)=c;
-        end
-    end
-end
+% % Calculating Markowitz Parameters
+% for i=[1:numyear]
+%     for j=[1:per]
+%         for k=[1:s]
+%             [a b c]=param(var{1,i}{1,j}, m{1,i}{1,j});
+%             mark{1,i}{1,j}(1,1)=a;
+%             mark{1,i}{1,j}(2,1)=b;
+%             mark{1,i}{1,j}(3,1)=c;
+%         end
+%     end
+% end
 
 
 % Finding optimal Chi's
@@ -157,9 +157,11 @@ for i=[1:numyear]
             sR=sharpe_ratio_reshape(j,i);
             m_temp=m{1,i}{1,j};
             v_temp=var{1,i}{1,j};
-            [chi_temp, money_temp]=chiAlloc(sR, m_temp, v_temp);
+            rF=mu_si_an(j,i);
+            [chi_temp, money_temp, I]=chiAlloc(sR, m_temp, v_temp,rF);
             chiOpt{1,i}{1,j}=chi_temp;
             moneyMaxChi{1,i}{1,j}=money_temp;
+            
     end
 end
 
