@@ -1,7 +1,7 @@
 %% Project 2: Economic Uncertainties
 tic
 clear all;
-m_or_q = 'month';
+m_or_q = 'quart';
 year = '2002';
 filename = strcat('data_', m_or_q, '_', year, '.mat');
 startDateString = strcat('1-01-',year);
@@ -150,14 +150,12 @@ end
 % Finding optimal Chi's
 for i=[1:numyear]
     for j=[1:per]
-        for k=[1:s]
             sR=sharpe_ratio_reshape(j,i);
-            m_temp=m{1,i}{1,j}(1,k);
+            m_temp=m{1,i}{1,j};
             v_temp=var{1,i}{1,j};
             [chi_temp, money_temp]=chiAlloc(sR, m_temp, v_temp);
-            chiOPt{1,i}{1,j}(1,k)=chi_temp;
-            moneyMaxChi{1,i}{1,j}(1,k)=money_temp;
-        end
+            chiOPt{1,i}{1,j}=chi_temp;
+            moneyMaxChi{1,i}{1,j}=money_temp;
     end
     
 end

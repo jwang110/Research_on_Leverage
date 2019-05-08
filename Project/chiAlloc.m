@@ -6,7 +6,7 @@ function [c, M]=chiAlloc( sR, m, V)
 
     %Partitioning Chi, right now i have it set to go from [-sharp ratio,
     %sharpe ratio] with step size n
-    mini=min(-1*sR, sR);
+    mini=0;
     maxi=max(-1*sR, sR);
     n=100;
     for i=1:n+1
@@ -17,7 +17,7 @@ function [c, M]=chiAlloc( sR, m, V)
     % asset)
     f=ones(9,length(chi)-1);
     for i=1:(length(chi)-1)
-        f(:,i)=(1-(chi/sR))*(V^-1*m)/(1+sR^2); 
+        f(:,i)=(1-(chi(i)/sR))*(V^-1*m')/(1+sR^2); 
     end
     
     
@@ -26,7 +26,7 @@ function [c, M]=chiAlloc( sR, m, V)
     %best F*
     money=zeros((length(chi)-1),1)
     for i=1:(length(chi)-1)
-        money(i)=f(:,i)'*m
+        money(i)=f(:,i)'*m'
     end
     [M I]=max(money);
     % I is the index for the max value
