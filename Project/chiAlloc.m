@@ -13,19 +13,22 @@ function [c, M]=chiAlloc( sR, m, V)
     for i=1:n+1
         chi_temp(i)=mini + ((i-1) * (maxi-mini)/n);
     end
-    chi = chi_temp(2:end-1,:)
+    chi = chi_temp(2:end-1,:);
     % Finding F* : this will give us a matrix with with 9 rows (for each
     % asset)
     f=ones(9,length(chi));
     for i=1:(length(chi))
-        f(:,i)=(1-(chi(i)/sR))*(vTilda^-1*mTilda')/(1+sR^2); 
+        if(sR == 0)
+            f(:,i) = zeros(9,1);
+        else
+            f(:,i)=(1-(chi(i)/sR))*(vTilda^-1*mTilda')/(1+sR^2); 
+        end
     end
     
     
     %Find best F* : dot F* with returns and which ever returns the most
     %money is the best allocations. Then I find the index related with the
     %best F*
-    sum = 0;
     money=zeros((length(chi)),1);
     for i=1:(length(chi))
         money(i)=f(:,i)'*m';
