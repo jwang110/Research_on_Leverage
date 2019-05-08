@@ -1,5 +1,5 @@
 %% find_ome(DATA,mu_si_an,day_start,day_end)
-function [ome_st,real_sharp]=find_ome(DATA,mu_si_an)
+function [ome_st,sharp_ratio,real_sharp]=find_ome(DATA,mu_si_an)
 % Find mean variance vector, m(n*1):
 n=9;
 m=[];
@@ -44,6 +44,15 @@ else
     ome_st=0;ome_ct=0;f_st=zeros(n,1);f_ct=zeros(n,1);
 end
 sharp=(mu_st-mu_si)/sig_st;
+sharp_ratio=[];
+for i=1:length(sharp)
+    if sharp>0
+        sharp_ratio=[sharp_ratio;sharp];
+    else
+        sharp_ratio=[sharp_ratio;0];
+    end
+end
+
 real_sharp=[];
 for i=1:length(sharp)
     if sharp>0

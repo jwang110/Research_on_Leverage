@@ -29,10 +29,12 @@ load('annual_rate_shifting_quarterly.mat', 'mu_si_an')
 num_rolling=size(rolling_quarter,2);
 ome_quarter=[];
 sharp_ratio=[];
+ome_sharp=[];
 for i=1:num_rolling
-[ome,sharp]=find_ome(rolling_quarter{1,i},mu_si_an(i,1));
+[ome,sharp,omega_sharp]=find_ome(rolling_quarter{1,i},mu_si_an(i,1));
 ome_quarter=[ome_quarter;ome];
 sharp_ratio=[sharp_ratio,sharp];
+ome_sharp=[ome_sharp;omega_sharp];
 end
 figure
 plot(dates2,ome_quarter)

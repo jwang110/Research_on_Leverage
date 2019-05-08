@@ -1,7 +1,7 @@
 %% Project 2: Economic Uncertainties
 tic
 clear all;
-m_or_q = 'month';
+m_or_q = 'quart';
 year = '2002';
 filename = strcat('data_', m_or_q, '_', year, '.mat');
 startDateString = strcat('1-01-',year);
@@ -22,6 +22,7 @@ dates = linspace(startDate,endDate,numyear*per);
 
 
 %% (1) Leverage
+dates2 = linspace(startDate,endDate,numyear*4);
 load('annual_rate_shifting_quarterly.mat', 'mu_si_an')
 % find the rolling quarter data from 2002 to 2018
 [rolling_quarter]=Rolling_quarters_data(numyear,per);
@@ -29,7 +30,7 @@ num_rolling=size(rolling_quarter,2);
 ome_quarter=[];
 sharp_ratio=[];
 for i=1:num_rolling
-[ome,sharp]=find_ome(rolling_quarter{1,i},mu_si_an(i,1));
+[ome,ome_sharp]=find_ome(rolling_quarter{1,i},mu_si_an(i,1));
 ome_quarter=[ome_quarter;ome];
 sharp_ratio=[sharp_ratio,sharp];
 end
@@ -109,7 +110,6 @@ ome_quarter_reshape=reshape(ome_quarter,[4,17]);
 
 %% (6) Sharp Ratio
 % calculated the shrp ratio in the leverage section
-dates2 = linspace(startDate,endDate,numyear*4);
 figure
 plot(dates2,sharp_ratio)
 datetick('x', 'yyyy');
@@ -123,16 +123,39 @@ toc
 
 %% Finding Best Chi
 
-% Finding optimal Chi's
+% Calculating Mean and Variance
 for i=[1:numyear]
     for j=[1:per]
         for k=[1:s]
-            sR=sharpe_ratio_reshape(j,i);
-            m_temp=m{1,i}{1,j}(1,k);
-            v_temp=var{1,i}{1,j};
-            [chiOpt, chiMoney]=chiAlloc(sR, m_temp, v_temp);
-            
+            m{1,i}{1,j}(1,k)=mean(data{1,i}{1,j}(:,k));
+            var{1,i}{1,j}=cov(data{1,i}{1,j});
         end
+    end
+end
+
+
+% Calculating Markowitz Parameters
+for i=[1:numyear]
+    for j=[1:per]
+        for k=[1:s]
+            [a b c]=param(var{1,i}{1,j}, m{1,i}{1,j});
+            mark{1,i}{1,j}(1,1)=a;
+            mark{1,i}{1,j}(2,1)=b;
+            mark{1,i}{1,j}(3,1)=c;
+        end
+    end
+end
+
+
+% Finding optimal Chi's
+for i=[1:numyear]
+    for j=[1:per]
+            sR=sharpe_ratio_reshape(j,i);
+            m_temp=m{1,i}{1,j};
+            v_temp=var{1,i}{1,j};
+            [chi_temp, money_temp]=chiAlloc(sR, m_temp, v_temp);
+            chiOPt{1,i}{1,j}=chi_temp;
+            moneyMaxChi{1,i}{1,j}=money_temp;
     end
     
 end
@@ -142,59 +165,5 @@ end
 
 
 
-% Calculating Mean and Variance
-% for i=[1:numyear]
-%     for j=[1:per]
-%         for k=[1:s]
-%             m{1,i}{1,j}(1,k)=mean(data{1,i}{1,j}(:,k));
-%             var{1,i}{1,j}=cov(data{1,i}{1,j});
-%         end
-%     end
-% end
 
-
-% Calculating Markowitz Parameters
-% for i=[1:numyear]
-%     for j=[1:per]
-%         for k=[1:s]
-%             [a b c]=param(var{1,i}{1,j}, m{1,i}{1,j});
-%             mark{1,i}{1,j}(1,1)=a;
-%             mark{1,i}{1,j}(2,1)=b;
-%             mark{1,i}{1,j}(3,1)=c;
-%         end
-%     end
-% end
-
-
-
-
-% for i=[1:numyear]
-%     for j=[1:per]
-%         for k=[1:s]
-%             %Calculating Squiggly returns
-% %             r=(data{1,i}{1,j}(:,k));
-% %             u=(i,j);
-% %             rTilda=(1/(1+u))*(r-(u*ones(length(r),1)));
-% %             rT{1,i}{1,j}(:,k)=rTilda;
-%             
-%             %Calculating squiggly mean and variance
-%              mT{1,i}{1,j}(1,k)=( 1/(1+mu(per, numyear))) * (m{1,i}{1,j}{
-%              varT{1,i}{1,j}=cov(rT{1,i}{1,j});
-%         end
-%     end
-% end
-
-% for i=[1:numyear]
-%     for j=[1:per]
-%         for k=[1:s]
-%             chi=[];
-%             sharpe_temp=u(i,j);
-%             mean_temp=mT{1,i}{1,j}(1,k);
-%             var_temp=varT{1,i}{1,j};
-%             f=chiAlloc(chi,sharpe_temp , mean_temp, var_temp)
-%             
-%             
-%         end
-%     end
-% end
 
