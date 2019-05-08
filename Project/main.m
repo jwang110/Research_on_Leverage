@@ -114,6 +114,7 @@ ome_quarter_reshape=reshape(ome_quarter,[4,17]);
 %% (6) Sharp Ratio
 % calculated the shrp ratio in the leverage section
 figure
+hold all;
 plot(dates2,sharp_ratio)
 datetick('x', 'yyyy');
 title('sharpe ratio')
@@ -157,10 +158,24 @@ for i=[1:numyear]
             m_temp=m{1,i}{1,j};
             v_temp=var{1,i}{1,j};
             [chi_temp, money_temp]=chiAlloc(sR, m_temp, v_temp);
-            chiOPt{1,i}{1,j}=chi_temp;
+            chiOpt{1,i}{1,j}=chi_temp;
             moneyMaxChi{1,i}{1,j}=money_temp;
     end
 end
+
+index = 1;
+chi_vect = zeros(1, numyear*per);
+for i=1:numyear
+    for j=1:per
+        chi_vect(1, index) = chiOpt{1,i}{1,j};
+        index = index+1;
+    end
+end
+
+%figure;
+%hold all;
+plot(dates, chi_vect);
+%datetick('x', 'yyyy');
 
 
 

@@ -1,6 +1,6 @@
 function [c, M]=chiAlloc( sR, m, V)
     % Finding squiggly m and v
-    mTilda= (1/(1+sR))* (m-sR*ones(length(m),1));
+    mTilda= (1/(1+sR))* (m-sR*ones(length(m),1)');
     vTilda= (1/(1+sR)^2)*V;
 
 
@@ -18,7 +18,7 @@ function [c, M]=chiAlloc( sR, m, V)
     % asset)
     f=ones(9,length(chi));
     for i=1:(length(chi))
-        f(:,i)=(1-(chi(i)/sR))*(V^-1*m')/(1+sR^2); 
+        f(:,i)=(1-(chi(i)/sR))*(vTilda^-1*mTilda')/(1+sR^2); 
     end
     
     
