@@ -22,6 +22,7 @@ dates = linspace(startDate,endDate,numyear*per);
 
 
 %% (1) Leverage
+dates2 = linspace(startDate,endDate,numyear*4);
 load('annual_rate_shifting_quarterly.mat', 'mu_si_an')
 % find the rolling quarter data from 2002 to 2018
 [rolling_quarter]=Rolling_quarters_data(numyear,per);
@@ -109,7 +110,6 @@ ome_quarter_reshape=reshape(ome_quarter,[4,17]);
 
 %% (6) Sharp Ratio
 % calculated the shrp ratio in the leverage section
-dates2 = linspace(startDate,endDate,numyear*4);
 figure
 plot(dates2,sharp_ratio)
 datetick('x', 'yyyy');
