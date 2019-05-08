@@ -33,7 +33,7 @@ ome_sharp=[];
 for i=1:num_rolling
 [ome,sharp,omega_sharp]=find_ome(rolling_quarter{1,i},mu_si_an(i,1));
 ome_quarter=[ome_quarter;ome];
-sharp_ratio=[sharp_ratio,sharp];
+sharp_ratio=[sharp_ratio;sharp];
 ome_sharp=[ome_sharp;omega_sharp];
 end
 figure
