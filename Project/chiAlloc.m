@@ -8,7 +8,7 @@ function [c, M, I, f, money]=chiAlloc( sR, m, V, r, day)
     %Partitioning Chi, right now i have it set to go from [-sharp ratio,
     %sharpe ratio] with step size n
     mini=0;
-    maxi=(1-rF)*sR;
+    maxi=sR;
     n=100;
     chi_temp = zeros(n+1,1);
     for i=1:n+1
@@ -24,7 +24,7 @@ function [c, M, I, f, money]=chiAlloc( sR, m, V, r, day)
         if(sR == 0)
             f(:,i) = zeros(9,1);
         else
-            f(:,i)=(1-rF-(chi(i)/sR))*(vTilda^-1*mTilda')/(1+sR^2);
+            f(:,i)=(1-(chi(i)/sR))*(vTilda^-1*mTilda')/(1+sR^2);
         end
     end
     
