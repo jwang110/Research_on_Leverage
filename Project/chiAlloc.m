@@ -1,7 +1,8 @@
-function [c, M, I]=chiAlloc( sR, m, V, rF)
+function [c, M, I]=chiAlloc( sR, m, V, r, day)
     % Finding squiggly m and v
-    mTilda= (1/(1+rF))* (m-rF*ones(length(m),1)');
-    vTilda= (1/(1+rF)^2)*V;
+    rF=r;%/100;
+    mTilda= (1/(1+rF))* (m-(rF/day)*ones(length(m),1)');
+    vTilda= (1/(1+(rF/day))^2)*V;
 
 
     %Partitioning Chi, right now i have it set to go from [-sharp ratio,
@@ -14,6 +15,8 @@ function [c, M, I]=chiAlloc( sR, m, V, rF)
         chi_temp(i)=mini + ((i-1) * (maxi-mini)/n);
     end
     chi = chi_temp(2:end-1,:);
+    
+    
     % Finding F* : this will give us a matrix with with 9 rows (for each
     % asset)
     f=ones(9,length(chi));

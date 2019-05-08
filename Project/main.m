@@ -25,6 +25,7 @@ chi_dates = linspace(startDate, endDate, numyear);
 %% (1) Leverage
 dates2 = linspace(startDate,endDate,numyear*4);
 load('annual_rate_shifting_quarterly.mat', 'mu_si_an')
+mu_si_an = mu_si_an;
 % find the rolling quarter data from 2002 to 2018
 [rolling_quarter]=Rolling_quarters_data(numyear,per);
 num_rolling=size(rolling_quarter,2);
@@ -161,9 +162,11 @@ for i=[1:numyear]
             m_temp=m{1,i}{1,j};
             v_temp=var{1,i}{1,j};
             rF=riskFree(j,i);
-            [chi_temp, money_temp, I]=chiAlloc(sR, m_temp, v_temp,rF);
+            day_temp=length(data{1,i}{1,j}(:,k));
+            [chi_temp, money_temp, I]=chiAlloc(sR, m_temp, v_temp,rF, day_temp);
             chiOpt{1,i}{1,j}=chi_temp;
-            moneyMaxChi{1,i}{1,j}=money_temp;        
+            moneyMaxChi{1,i}{1,j}=money_temp;  
+            I
     end
 end
 
@@ -176,10 +179,10 @@ for i=1:numyear
     end
 end
 
-%figure;
-%hold all;
+figure;
+hold all;
 plot(dates, chi_vect);
-%datetick('x', 'yyyy');
+datetick('x', 'yyyy');
 
 
 
