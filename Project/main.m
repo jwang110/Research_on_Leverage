@@ -150,6 +150,7 @@ end
 %     end
 % end
 
+riskFree=reshape(mu_si_an,[4,17])
 
 % Finding optimal Chi's
 for i=[1:numyear]
@@ -157,11 +158,10 @@ for i=[1:numyear]
             sR=sharpe_ratio_reshape(j,i);
             m_temp=m{1,i}{1,j};
             v_temp=var{1,i}{1,j};
-            rF=mu_si_an(j,i);
+            rF=riskFree(j,i);
             [chi_temp, money_temp, I]=chiAlloc(sR, m_temp, v_temp,rF);
             chiOpt{1,i}{1,j}=chi_temp;
-            moneyMaxChi{1,i}{1,j}=money_temp;
-            
+            moneyMaxChi{1,i}{1,j}=money_temp;        
     end
 end
 
