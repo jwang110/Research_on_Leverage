@@ -156,17 +156,21 @@ end
 riskFree=reshape(mu_si_an,[4,17]);
 
 % Finding optimal Chi's
-for i=[1:numyear]
-    for j=[1:per]
+for i=[1:1]
+    for j=[1:1]
             sR=sharpe_ratio_reshape(j,i);
             m_temp=m{1,i}{1,j};
             v_temp=var{1,i}{1,j};
             rF=riskFree(j,i);
             day_temp=length(data{1,i}{1,j}(:,k));
-            [chi_temp, money_temp, I]=chiAlloc(sR, m_temp, v_temp,rF, day_temp);
+            [chi_temp, money_temp, I, f, money]=chiAlloc(sR, m_temp, v_temp,rF, day_temp);
             chiOpt{1,i}{1,j}=chi_temp;
             moneyMaxChi{1,i}{1,j}=money_temp;  
+            chi_temp
+            money_temp
             I
+            f
+            money
     end
 end
 
@@ -183,10 +187,11 @@ figure;
 hold all;
 plot(dates, chi_vect);
 datetick('x', 'yyyy');
+title('Chi');
 
 
 
-proximity(dates, m, var, m_or_q, year);
+%proximity(dates, m, var, m_or_q, year);
 
 
 

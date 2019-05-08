@@ -1,7 +1,8 @@
-function [c, M, I]=chiAlloc( sR, m, V, rF)
+function [c, M, I, f, ]=chiAlloc( sR, m, V, r, day)
     % Finding squiggly m and v
-    mTilda= (1/(1+rF))* (m-rF*ones(length(m),1)');
-    vTilda= (1/(1+rF)^2)*V;
+    rF=r;%/100;
+    mTilda= (1/(1+rF/365))* (m-(rF/day)*ones(length(m),1)');
+    vTilda= (1/(1+(rF/365)^2))*V;
 
 
     %Partitioning Chi, right now i have it set to go from [-sharp ratio,
@@ -23,7 +24,7 @@ function [c, M, I]=chiAlloc( sR, m, V, rF)
         if(sR == 0)
             f(:,i) = zeros(9,1);
         else
-            f(:,i)=(1-(chi(i)/sR))*(vTilda^-1*mTilda')/(1+sR^2); 
+            f(:,i)=(1-(chi(i)/sR))*(vTilda^-1*mTilda')/(1+sR^2);
         end
     end
     
@@ -35,10 +36,16 @@ function [c, M, I]=chiAlloc( sR, m, V, rF)
     for i=1:(length(chi))
         money(i)=f(:,i)'*m';
     end
-    [M, I]=max(money);
+   
+    [M I]=max(money);
     % I is the index for the max value
-    
-    
+    H=[];
+    index=1;
+    while M~=H
+        H=money(index);
+        index=index+1;
+    end
+    index
     
     %Return best Chi
     c=chi(I);
