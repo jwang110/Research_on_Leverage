@@ -19,12 +19,15 @@ num_years = end_year-start_year+1;
 
 data_m = cell(1,num_years);
 data_q = cell(1,num_years);
+data_y = cell(1,num_years);
 
 for i=1:num_years
+    temp_year_data = [];
     curr_year = start_year+i-1;
     temp_month_data = cell(1,12);
     for j=1:num_stocks
         [temp_months, temp_year] = getDataForYear(new_data{1,j},curr_year);
+        temp_year_data = horzcat(temp_year_data, temp_year); 
         for k=1:12
             if (j==1)
                 temp_month_data{1,k} = getDataForMonth(temp_months, temp_year, k);
@@ -34,6 +37,7 @@ for i=1:num_years
         end
     
     end
+    data_y{1,i} = temp_year_data;
     q1 = [temp_month_data{1,1}; temp_month_data{1,2}; temp_month_data{1,3}];
     q2 = [temp_month_data{1,4}; temp_month_data{1,5}; temp_month_data{1,6}];
     q3 = [temp_month_data{1,7}; temp_month_data{1,8}; temp_month_data{1,9}];
@@ -45,4 +49,4 @@ for i=1:num_years
     
 end
 1
-clearvars -except data_q data_m labels
+clearvars -except data_q data_m labels data_y
