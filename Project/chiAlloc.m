@@ -1,4 +1,9 @@
 function [c]=chiAlloc( sR, m, V)
+
+
+
+
+
     %Partitioning Chi, right now i have it set to go from [-sharp ratio,
     %sharpe ratio] with step size n
     mini=min(-1*sR, sR);
@@ -21,7 +26,7 @@ function [c]=chiAlloc( sR, m, V)
     %best F*
     money=zeros((length(chi)-1),1)
     for i=1:(length(chi)-1)
-        money(i)=f(:,i)'.*m.*f(:,i);
+        money(i)=f(:,i)'*m
     end
     [M I]=max(money);
     % I is the index for the max value
