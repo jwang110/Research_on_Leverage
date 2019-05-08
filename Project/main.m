@@ -134,6 +134,7 @@ load('rolling_quart.mat');
 for i=[1:numyear]
     for j=[1:per]
         for k=[1:s]
+            
             m{1,i}{1,j}(1,k)=mean(data{1,i}{1,j}(:,k));
             var{1,i}{1,j}=cov(data{1,i}{1,j});
         end
@@ -158,19 +159,16 @@ riskFree=reshape(mu_si_an,[4,17]);
 % Finding optimal Chi's
 for i=[1:numyear]
     for j=[1:per]
-            sR=sharpe_ratio_reshape(j,i);
-            m_temp=m{1,i}{1,j};
-            v_temp=var{1,i}{1,j};
-            rF=riskFree(j,i);
-            day_temp=length(data{1,i}{1,j}(:,k));
-            [chi_temp, money_temp, I, f, money]=chiAlloc(sR, m_temp, v_temp,rF, day_temp);
+            dailyR1=data{1,i}{1,j};
+            dailyR2=data{1,i}{1,j+1};
+            % j+1? change, to full year non-rolling?
+            sR=[sharpe_ratio_reshape(j,i), sharpe_ratio_reshape(j+1,i)];
+            rF=[riskFree(j,i), riskFree(j+1,i)];
+            
+            [mean1,  meantest,var1, vartest]=chiAlloc(sR, rF, dailyR1,dailyR2);
+            %[chi_temp, money_temp, I, f, money]=chiAlloc(sR, rF, dailyR1,dailyR2)
             chiOpt{1,i}{1,j}=chi_temp;
             moneyMaxChi{1,i}{1,j}=money_temp;  
-%             chi_temp
-%             money_temp
-%             I
-%             f
-%             money
     end
 end
 
