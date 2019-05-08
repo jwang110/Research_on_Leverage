@@ -105,7 +105,7 @@ ome_quarter_reshape=reshape(ome_quarter,[4,17]);
 
 %% (4) Efficiency Proximity
 
-%proximity(dates, m, var, m_or_q, year);
+%
 
 
 
@@ -126,6 +126,8 @@ toc
 
 
 %% Finding Best Chi
+load('rolling_quart.mat');
+
 
 % Calculating Mean and Variance
 for i=[1:numyear]
@@ -150,7 +152,7 @@ end
 %     end
 % end
 
-riskFree=reshape(mu_si_an,[4,17])
+riskFree=reshape(mu_si_an,[4,17]);
 
 % Finding optimal Chi's
 for i=[1:numyear]
@@ -179,6 +181,9 @@ end
 plot(dates, chi_vect);
 %datetick('x', 'yyyy');
 
+
+
+proximity(dates, m, var, m_or_q, year);
 
 
 
