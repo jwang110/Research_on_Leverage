@@ -16,6 +16,7 @@ font=20;
 startDate = datenum(startDateString);
 endDate = datenum('12-31-2018');
 dates = linspace(startDate,endDate,numyear*per);
+chi_dates = linspace(startDate, endDate, numyear);
 
 
 
@@ -159,8 +160,9 @@ for i=[1:numyear]
             chiOPt{1,i}{1,j}=chi_temp;
             moneyMaxChi{1,i}{1,j}=money_temp;
     end
-    
 end
+
+
 
 
 
