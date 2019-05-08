@@ -156,8 +156,8 @@ end
 riskFree=reshape(mu_si_an,[4,17]);
 
 % Finding optimal Chi's
-for i=[1:1]
-    for j=[1:1]
+for i=[1:numyear]
+    for j=[1:per]
             sR=sharpe_ratio_reshape(j,i);
             m_temp=m{1,i}{1,j};
             v_temp=var{1,i}{1,j};
@@ -166,11 +166,11 @@ for i=[1:1]
             [chi_temp, money_temp, I, f, money]=chiAlloc(sR, m_temp, v_temp,rF, day_temp);
             chiOpt{1,i}{1,j}=chi_temp;
             moneyMaxChi{1,i}{1,j}=money_temp;  
-            chi_temp
-            money_temp
-            I
-            f
-            money
+%             chi_temp
+%             money_temp
+%             I
+%             f
+%             money
     end
 end
 
@@ -178,21 +178,41 @@ index = 1;
 chi_vect = zeros(1, numyear*per);
 for i=1:numyear
     for j=1:per
-        chi_vect(1, index) = chiOpt{1,i}{1,j};
-        index = index+1;
+        chi_vect(index) = chiOpt{1,i}{1,j};
+        sharpe_vect(index)=sharpe_ratio_reshape(j,i);
+        index = index+1
     end
 end
-
+hold off;
 figure;
-hold all;
+hold on;
 plot(dates, chi_vect);
+plot(dates, sharpe_vect);
 datetick('x', 'yyyy');
 title('Chi');
 
 
 
-%proximity(dates, m, var, m_or_q, year);
+proximity(dates, m, var, m_or_q, year);
 
+%% Least Squares Fit
+
+
+
+% for i=[1:numyear]
+%     for j=[1:per]
+%         % Omega Leverage
+%         wLev
+%         %Omega Dimensionality
+%         wDim
+%         %Omega VFINX proximity
+%         wProxim
+%         %Omega Sharpe Ratio
+%         wSharp=
+%         
+% 
+%     end
+% end
 
 
 

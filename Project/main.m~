@@ -25,6 +25,7 @@ chi_dates = linspace(startDate, endDate, numyear);
 %% (1) Leverage
 dates2 = linspace(startDate,endDate,numyear*4);
 load('annual_rate_shifting_quarterly.mat', 'mu_si_an')
+mu_si_an = mu_si_an;
 % find the rolling quarter data from 2002 to 2018
 [rolling_quarter]=Rolling_quarters_data(numyear,per);
 num_rolling=size(rolling_quarter,2);
@@ -105,7 +106,7 @@ ome_quarter_reshape=reshape(ome_quarter,[4,17]);
 
 %% (4) Efficiency Proximity
 
-%proximity(dates, m, var, m_or_q, year);
+%
 
 
 
@@ -126,6 +127,8 @@ toc
 
 
 %% Finding Best Chi
+load('rolling_quart.mat');
+
 
 % Calculating Mean and Variance
 for i=[1:numyear]
@@ -150,19 +153,24 @@ end
 %     end
 % end
 
-riskFree=reshape(mu_si_an,[4,17])
+riskFree=reshape(mu_si_an,[4,17]);
 
 % Finding optimal Chi's
 for i=[1:numyear]
     for j=[1:per]
-%             sR=sharpe_ratio_reshape(j,i);
-%             m_temp=m{1,i}{1,j};
-%             v_temp=var{1,i}{1,j};
-%             rF=riskFree(j,i);
-%             [chi_temp, money_temp, I]=chiAlloc(sR, m_temp, v_temp,rF);
-%             chiOpt{1,i}{1,j}=chi_temp;
-%             moneyMaxChi{1,i}{1,j}=money_temp;
-%             
+            sR=sharpe_ratio_reshape(j,i);
+            m_temp=m{1,i}{1,j};
+            v_temp=var{1,i}{1,j};
+            rF=riskFree(j,i);
+            day_temp=length(data{1,i}{1,j}(:,k));
+            [chi_temp, money_temp, I, f, money]=chiAlloc(sR, m_temp, v_temp,rF, day_temp);
+            chiOpt{1,i}{1,j}=chi_temp;
+            moneyMaxChi{1,i}{1,j}=money_temp;  
+%             chi_temp
+%             money_temp
+%             I
+%             f
+%             money
     end
 end
 
@@ -170,17 +178,39 @@ index = 1;
 chi_vect = zeros(1, numyear*per);
 for i=1:numyear
     for j=1:per
-        chi_vect(1, index) = chiOpt{1,i}{1,j};
-        index = index+1;
+        chi_vect(index) = chiOpt{1,i}{1,j};
+        index = index+1
     end
 end
 
-%figure;
-%hold all;
+figure;
+hold on;
 plot(dates, chi_vect);
-%datetick('x', 'yyyy');
+datetick('x', 'yyyy');
+title('Chi');
 
 
+
+proximity(dates, m, var, m_or_q, year);
+
+%% Least Squares Fit
+
+
+
+for i=[1:numyear]
+    for j=[1:per]
+        % Omega Leverage
+        wLev
+        %Omega Dimensionality
+        wDim
+        %Omega VFINX proximity
+        wProxim
+        %Omega Sharpe Ratio
+        
+        
+
+    end
+end
 
 
 

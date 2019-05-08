@@ -4,11 +4,11 @@ function [c, M, I, f, money]=chiAlloc( sR, m, V, r, day)
     mTilda= (1/(1+rF/365))* (m-(rF/day)*ones(length(m),1)');
     vTilda= (1/(1+(rF/365)^2))*V;
 
-
+    
     %Partitioning Chi, right now i have it set to go from [-sharp ratio,
     %sharpe ratio] with step size n
     mini=0;
-    maxi=sR;
+    maxi=(1-rF)*sR;
     n=100;
     chi_temp = zeros(n+1,1);
     for i=1:n+1
@@ -24,7 +24,7 @@ function [c, M, I, f, money]=chiAlloc( sR, m, V, r, day)
         if(sR == 0)
             f(:,i) = zeros(9,1);
         else
-            f(:,i)=(1-(chi(i)/sR))*(vTilda^-1*mTilda')/(1+sR^2);
+            f(:,i)=(1-rF-(chi(i)/sR))*(vTilda^-1*mTilda')/(1+sR^2);
         end
     end
     
@@ -39,15 +39,9 @@ function [c, M, I, f, money]=chiAlloc( sR, m, V, r, day)
    
     [M I]=max(money);
     % I is the index for the max value
-    H=[];
-    index=1;
-    while M~=H
-        H=money(index);
-        index=index+1;
-    end
-    index
+  
     
     %Return best Chi
-    c=chi;
+    c=chi(I);
 
 end
