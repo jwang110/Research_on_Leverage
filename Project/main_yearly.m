@@ -65,7 +65,6 @@ plot(dates, prox);
 datetick('x', 'yyyy');
 title('proximity of vfinx 1 year');
 
-
 %% (6) Sharp Ratio
 % calculated the shrp ratio in the leverage section
 figure
@@ -95,7 +94,7 @@ year=1:16;
 plot(year,chiOpt,'b')
 hold on
 plot(year,sharp_ratio(1:16),'r')
-title('comparison sharpe and chi money 2 only 10 max')
+title('comparison sharpe and chi money 2 only 8 max')
 % % frac=chiOpt(1:16)/sharp_ratio(1:16)
 % % plot(year,frac)
 % frac=[];
