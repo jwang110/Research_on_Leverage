@@ -25,28 +25,22 @@ for i=[1:numyear]
 end
 
 %% (1) Leverage
-dates2 = linspace(startDate,endDate,numyear*4);
-load('annual_rate_shifting_quarterly.mat', 'mu_si_an')
-mu_si_an = mu_si_an;
-% find the rolling quarter data from 2002 to 2018
-per =4;
-[rolling_quarter]=Rolling_quarters_data(numyear,per);
-num_rolling=size(rolling_quarter,2);
 ome_quarter=[];
 sharp_ratio=[];
 ome_sharp=[];
-for i=1:num_rolling
-[ome,sharp,omega_sharp]=find_ome(rolling_quarter{1,i},mu_si_an(i,1));
-ome_quarter=[ome_quarter;ome];
-sharp_ratio=[sharp_ratio;sharp];
-ome_sharp=[ome_sharp;omega_sharp];
+for i=1:numyear
+    [ome,sharp,omega_sharp]=find_ome(data{1,i},mu_si_an(i,1));
+    ome_quarter=[ome_quarter;ome];
+    sharp_ratio=[sharp_ratio;sharp];
+    ome_sharp=[ome_sharp;omega_sharp];
 end
-figure
-plot(dates2,ome_quarter)
+figure;
+hold on;
+plot(dates,ome_quarter);
 title('leverage');
 datetick('x', 'yyyy');
 % reshape the leverage ratio and the sharpe ratio
-ome_quarter_reshape=reshape(ome_quarter,[4,17]);
+%ome_quarter_reshape=reshape(ome_quarter,[4,17]);
 %% (2) Dimensionality
 dim = zeros(1,numyear);
 
@@ -76,11 +70,11 @@ title('proximity of vfinx 1 year');
 % calculated the shrp ratio in the leverage section
 figure
 hold all;
-plot(dates2,sharp_ratio)
+plot(dates,sharp_ratio)
 datetick('x', 'yyyy');
-title('sharpe ratio')
+title('sharpe ratio');
 % reshape the sharpe ratio
-sharpe_ratio_reshape=reshape(sharp_ratio,[4,17]);
+%sharpe_ratio_reshape=reshape(sharp_ratio,[4,17]);
 %% 
 
 
