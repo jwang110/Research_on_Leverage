@@ -92,9 +92,9 @@ end
 % build the matrix with the omega
 % figure
 % year=1:16;
-% % plot(year,chiOpt,'b')
-% % hold on
-% % plot(year,sharp_ratio(1:16),'r')
+% plot(year,chiOpt,'b')
+% hold on
+% plot(year,sharp_ratio(1:16),'r')
 % % frac=chiOpt(1:16)/sharp_ratio(1:16)
 % % plot(year,frac)
 % frac=[];

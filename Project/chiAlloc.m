@@ -14,7 +14,7 @@ function [chi,M]=chiAlloc( sR,rF, r1, r2)
     maxi=sR; %Note thatsR is a vector with 2 entries, 1 for each year
     n=100;
     chi_temp1 = linspace(mini, maxi, n);
-    chi1 = chi_temp1(1,2:end-1);
+    chi1 = chi_temp1(1,2:end);
     
     
     % PART 2: Compute allocation for our chi's
