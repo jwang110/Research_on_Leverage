@@ -5,7 +5,7 @@ per=size(data{1,1},2);
 s=size(data{1,1}{1,1},2);
 font=20;
 
-rolling_quarters = cell(1,numyear);
+rolling_quarters = cell(1,numyear-1);
 for i=2:numyear
     curr_year = cell(1,per);
     for j=1:per
@@ -47,6 +47,6 @@ for i=2:numyear
         
         curr_year{1,j} = [data{1,i_1}{1,j_1}(:,1:s);data{1,i_2}{1,j_2}(:,1:s);data{1,i_3}{1,j_3}(:,1:s);data{1,i}{1,j}(:,1:s)];
     end
-    rolling_quarters{1,i} = curr_year;
+    rolling_quarters{1,i-1} = curr_year;
 end
 
