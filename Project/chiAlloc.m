@@ -40,12 +40,13 @@ function [chi,M]=chiAlloc( sR,rF, r1, r2)
        
     money1(i)=sum(money_temp);
     end
-    
+    money1
     
     % Finding top 10
-    [M I]=sort(money1);
-    M=M(1:M);
-    I=I(1:10);
+    [M I]=sort(money1,'descend');
+    M=M(1:8);
+    I=I(1:8);
+    
     
     
     
@@ -67,10 +68,9 @@ function [chi,M]=chiAlloc( sR,rF, r1, r2)
     % PART 5: Comparing the moneys
     
     for i=1:length(I)
-       avg(i)=( money1(I(i))+money2(I(i)) )/2;
+       avg(i)=(money2(I(i)));
     end
     [A L]=max(avg);
-    I(L);
     %I(L) is the index of chi
     chi=chi1(I(L));
     M=money1(I(L));

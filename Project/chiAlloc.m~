@@ -6,24 +6,24 @@ function [chi,M]=chiAlloc( sR,rF, r1, r2)
     V=cov(r1);
     %Squiggle mean/var for year 1 and 2
     %Now we find the squiggles
-    mTilda1=(m-rF/360*ones(length(m)))/(1+rF/360);
-    vTilda1=V/(1+rF/360)^2;
+    mTilda1=(m-rF(1)/360*ones(9,1))/(1+rF(1)/360);
+    vTilda1=V/(1+rF(1)/360)^2;
      
     % PART 1: Partitioning Chi
     mini=0;
     maxi=sR; %Note thatsR is a vector with 2 entries, 1 for each year
     n=100;
     chi_temp1 = linspace(mini, maxi, n);
-    chi1 = chi_temp1(1,2:end-1);
+    chi1 = chi_temp1(1,2:end);
     
     
     % PART 2: Compute allocation for our chi's
     f=ones(9,length(chi1));
     for i=1:(length(chi1))
-        if(sR(1) == 0)
+        if(sR == 0)
             f(:,i) = zeros(9,1);
         else
-            f(:,i)=(1-(chi1(i)/sR(1)))*(vTilda1^-1*mTilda1')/(1+sR(1)^2);
+            f(:,i)=(1-(chi1(i)/sR))*(vTilda1^-1*mTilda1)/(1+sR^2);
         end
     end
     
@@ -40,12 +40,14 @@ function [chi,M]=chiAlloc( sR,rF, r1, r2)
        
     money1(i)=sum(money_temp);
     end
-    
+    money1
     
     % Finding top 10
-    [M I]=sort(money1);
-    M=M(1:M);
+    [M I]=sort(money1,'descend');
+    M=M(1:10);
     I=I(1:10);
+    
+    
     
     
     
