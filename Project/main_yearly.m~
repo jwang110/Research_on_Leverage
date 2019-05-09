@@ -76,38 +76,32 @@ title('sharpe ratio');
 % reshape the sharpe ratio
 % sharpe_ratio_reshape=reshape(sharp_ratio,[4,17]);
 %% Finding Best Chi
-riskFree=reshape(mu_si_an,[4,17]);
 riskFree=mu_si_an;
-sR=ome_sharp;
+sR=sharp_ratio;
 for i=[1:numyear-1]
             dailyR1=data{1,i};
             dailyR2=data{1,i+1};
             rF=[riskFree(i), riskFree(i+1)]; 
-            sR_temp=[sR(i),sR(i+1)]
-            [chi_temp,money_temp]=chiAlloc(sR, rF, dailyR1,dailyR2);
+            sR_temp=sR(i);
+            [chi_temp,money_temp]=chiAlloc(sR_temp, rF, dailyR1,dailyR2);
             chiOpt(i)=chi_temp;
             moneyMaxChi(i)=money_temp;  
 end
 
 %% Least Squares Fit
-
-
-
-% for i=[1:numyear]
-%     for j=[1:per]
-%         % Omega Leverage
-%         wLev
-%         %Omega Dimensionality
-%         wDim
-%         %Omega VFINX proximity
-%         wProxim
-%         %Omega Sharpe Ratio
-%         wSharp=
-%         
-% 
-%     end
-% end
-
+% build the matrix with the omega
+figure
+year=1:16;
+% plot(year,chiOpt,'b')
+% hold on
+% plot(year,sharp_ratio(1:16),'r')
+% frac=chiOpt(1:16)/sharp_ratio(1:16)
+% plot(year,frac)
+frac=[];
+for i=1:16
+    frac(i)=chiOpt(i)/sharp_ratio(i);
+end
+plot(year,frac)
 toc
 
 

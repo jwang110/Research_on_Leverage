@@ -89,24 +89,19 @@ for i=[1:numyear-1]
 end
 
 %% Least Squares Fit
-
-
-
-% for i=[1:numyear]
-%     for j=[1:per]
-%         % Omega Leverage
-%         wLev
-%         %Omega Dimensionality
-%         wDim
-%         %Omega VFINX proximity
-%         wProxim
-%         %Omega Sharpe Ratio
-%         wSharp=
-%         
-% 
-%     end
+% build the matrix with the omega
+% figure
+% year=1:16;
+% % plot(year,chiOpt,'b')
+% % hold on
+% % plot(year,sharp_ratio(1:16),'r')
+% % frac=chiOpt(1:16)/sharp_ratio(1:16)
+% % plot(year,frac)
+% frac=[];
+% for i=1:16
+%     frac(i)=chiOpt(i)/sharp_ratio(i);
 % end
-
+% plot(year,frac)
 toc
 
 
