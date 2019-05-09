@@ -1,8 +1,8 @@
 %% Project 2: Economic Uncertainties
 tic
 clear all;
-year = '2002';
-filename = strcat('data_quart_2002.mat');
+year = '2003';
+filename = strcat('rolling_quart_2003_backwards.mat');
 startDateString = strcat('1-01-',year);
 %filename = 'data_quart_2002.mat';
 load(filename);
