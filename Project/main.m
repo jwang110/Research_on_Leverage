@@ -127,9 +127,6 @@ toc
 
 
 %% Finding Best Chi
-load('rolling_quart.mat');
-
-
 % Calculating Mean and Variance
 for i=[1:numyear]
     for j=[1:per]
@@ -141,20 +138,8 @@ for i=[1:numyear]
     end
 end
 
-
-% % Calculating Markowitz Parameters
-% for i=[1:numyear]
-%     for j=[1:per]
-%         for k=[1:s]
-%             [a b c]=param(var{1,i}{1,j}, m{1,i}{1,j});
-%             mark{1,i}{1,j}(1,1)=a;
-%             mark{1,i}{1,j}(2,1)=b;
-%             mark{1,i}{1,j}(3,1)=c;
-%         end
-%     end
-% end
-
 riskFree=reshape(mu_si_an,[4,17]);
+% riskFree=riskFree(4,:);
 
 % Finding optimal Chi's
 for i=[1:numyear]
@@ -165,8 +150,7 @@ for i=[1:numyear]
             sR=[sharpe_ratio_reshape(j,i), sharpe_ratio_reshape(j+1,i)];
             rF=[riskFree(j,i), riskFree(j+1,i)];
             
-            [mean1,  meantest,var1, vartest]=chiAlloc(sR, rF, dailyR1,dailyR2);
-            %[chi_temp, money_temp, I, f, money]=chiAlloc(sR, rF, dailyR1,dailyR2)
+            [chi_temp,money_temp]=chiAlloc(sR, rF, dailyR1,dailyR2);
             chiOpt{1,i}{1,j}=chi_temp;
             moneyMaxChi{1,i}{1,j}=money_temp;  
     end

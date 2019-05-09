@@ -11,11 +11,8 @@ function [chi,M]=chiAlloc( sR,rF, r1, r2)
     mini=0;
     maxi=sR; %Note thatsR is a vector with 2 entries, 1 for each year
     n=100;
-    chi_temp1 = zeros(n+1,1);
-    for i=1:n+1
-        chi_temp1(i)=mini + ((i-1) * (maxi(1)-mini)/n);
-    end
-    chi1 = chi_temp1(2:end-1,:);
+    chi_temp1 = linspace(mini, maxi, n);
+    chi1 = chi_temp1(1,2:end-1);
     
     
     % PART 2: Compute allocation for our chi's
@@ -30,13 +27,13 @@ function [chi,M]=chiAlloc( sR,rF, r1, r2)
     
     
     % PART 3: Maximizing the return
-    money1=ones(length(chi1),1)
+    money1=ones(length(chi1),1);
     for i=1:length(chi1)
         
        money_temp=[];
        for j=1:length(rTilda1)
-         temp=log(1+rF(1)/360)+log(1+(rTilda1(:,j)*f(:,i)))
-         money_temp=[money_temp; temp]
+         temp=log(1+rF(1)/360)+log(1+(rTilda1(j,:)*f(:,i)));
+         money_temp=[money_temp; temp];
        end
        
     money1(i)=sum(money_temp);
@@ -45,19 +42,19 @@ function [chi,M]=chiAlloc( sR,rF, r1, r2)
     
     % Finding top 10
     [M I]=sort(money1);
-    M=M(1:M)
-    I=I(1:10)
+    M=M(1:M);
+    I=I(1:10);
     
     
     
     
     % PART 4: Maximixing returns for next year, with same f(chi)
-    money2=ones(length(chi1),1)
+    money2=ones(length(chi1),1);
     for i=1:length(chi1)
        money_temp=[];
        for j=1:length(rTilda2)
-         temp=log(1+rF(2)/360)+log(1+(rTilda2(:,j)*f(:,i)))
-         money_temp=[money_temp; temp]
+         temp=log(1+rF(2)/360)+log(1+(rTilda2(j,:)*f(:,i)));
+         money_temp=[money_temp; temp];
        end
        
     money2(i)=sum(money_temp);
@@ -70,7 +67,7 @@ function [chi,M]=chiAlloc( sR,rF, r1, r2)
        avg(i)=( money1(I(i))+money2(I(i)) )/2;
     end
     [A L]=max(avg);
-    
+    I(L);
     %I(L) is the index of chi
     chi=chi1(I(L));
     M=money1(I(L));

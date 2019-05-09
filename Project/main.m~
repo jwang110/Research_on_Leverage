@@ -142,17 +142,6 @@ for i=[1:numyear]
 end
 
 
-% % Calculating Markowitz Parameters
-% for i=[1:numyear]
-%     for j=[1:per]
-%         for k=[1:s]
-%             [a b c]=param(var{1,i}{1,j}, m{1,i}{1,j});
-%             mark{1,i}{1,j}(1,1)=a;
-%             mark{1,i}{1,j}(2,1)=b;
-%             mark{1,i}{1,j}(3,1)=c;
-%         end
-%     end
-% end
 
 riskFree=reshape(mu_si_an,[4,17]);
 
@@ -161,17 +150,14 @@ for i=[1:numyear]
     for j=[1:per]
             dailyR1=data{1,i}{1,j};
             dailyR2=data{1,i}{1,j+1};
-            % j+1? change
+            % j+1? change, to full year non-rolling?
             sR=[sharpe_ratio_reshape(j,i), sharpe_ratio_reshape(j+1,i)];
             rF=[riskFree(j,i), riskFree(j+1,i)];
-            [chi_temp, money_temp, I, f, money]=chiAlloc(sR, rF, dailyR1,dailyR2)
+            
+            [mean1,  meantest,var1, vartest]=chiAlloc(sR, rF, dailyR1,dailyR2);
+            %[chi_temp, money_temp, I, f, money]=chiAlloc(sR, rF, dailyR1,dailyR2)
             chiOpt{1,i}{1,j}=chi_temp;
             moneyMaxChi{1,i}{1,j}=money_temp;  
-%             chi_temp
-%             money_temp
-%             I
-%             f
-%             money
     end
 end
 
