@@ -87,7 +87,7 @@ for i=[1:numyear-1]
             moneyMaxChi(i)=money_temp;  
 end
 
-%% Least Squares Fit
+%% Plotting
 % build the matrix with the omega
 figure
 year=1:16;
@@ -102,6 +102,89 @@ title('comparison sharpe and chi money 2 only 8 max')
 %     frac(i)=chiOpt(i)/sharp_ratio(i);
 % end
 % plot(year,frac)
+
+%% Least Squares Fitting
+
+%dimensionality
+% % dim;
+% % %proximity of vfinx to efficient frontier
+% % prox;
+% % %risk free rate
+% % riskFree;
+% % %sharp ratio omega
+% % ome_sharp;
+% % %leverage
+% % ome_quarter;
+
+omega_rf_temp = [dim', prox', riskFree, ome_sharp, ome_quarter];
+omega_rf = omega_rf_temp(1:end-1, :);
+
+omega_temp_no_dim = [prox', riskFree, ome_sharp, ome_quarter];
+omega_no_dim = omega_temp_no_dim(1:end-1, :); 
+
+
+[rf_coef, rf_error] = omegaCoef(omega_rf, chiOpt);
+[no_dim_coef, no_dim_error] = omegaCoef(omega_no_dim, chiOpt);
+
+disp("rf error" + rf_error);
+disp("no dim error" + no_dim_error);
+
+
+figure;
+hold on;
+plot(year,chiOpt,'b');
+plot(year, omega_rf*rf_coef, 'r');
+plot(year, omega_no_dim*no_dim_coef, 'g');
+
+% omega = omega_rf;
+% coef = rf_coef;
+% chiEst = omega*coef;
+% 
+% f_chi = zeros(s, numyear);
+% for i=1:numyear-1
+%     m_val = mean(data{1,i})';
+%     var = cov(data{1,i});
+%     mTilda1=(m_val-riskFree(i)/360*ones(9,1))/(1+riskFree(i)/360);
+%     vTilda1=var/(1+riskFree(i)/360)^2;
+%     f_chi(:,i)=(1-(chiEst(i)/sharp_ratio(i)))*(vTilda1^-1*mTilda1)/(1+sharp_ratio(i)^2);
+%     f_chi_opt(:,i)=(1-(chiOpt(i)/sharp_ratio(i)))*(vTilda1^-1*mTilda1)/(1+sharp_ratio(i)^2);
+% end
+% 
+% chi_data = cell(1, numyear);
+% chi_opt_data = cell(1,numyear);
+% for i=1:numyear-1
+%     curr_year = [];
+%     curr_year_opt = [];
+%     for j=1:size(data{1,i},1)
+%         r_tilda = 1/(1+riskFree(i)/360)*(data{1,i}(j,:)'-riskFree(i)*ones(9,1));
+%         curr_year(j,1) = riskFree(i)/360 *(1-ones(9,1)'*f_chi(:,i))+r_tilda'*f_chi(:,i);
+%         curr_year_opt(j,1) = riskFree(i)/360 *(1-ones(9,1)'*f_chi_opt(:,i))+r_tilda'*f_chi_opt(:,i);
+%     end
+%     chi_data{1,i} = curr_year;
+%     chi_opt_data{1,i} = curr_year_opt;
+%     %size(chi_data)
+% end
+% 
+% money = [];
+% money_opt = [];
+% for i=1:numyear-1
+%     money = vertcat(money, chi_data{1,i});
+%     money_opt = vertcat(money_opt, chi_opt_data{1,i});
+% end
+% load('vfinx_workspace.mat');
+% 
+% startDate = datenum('1-1-2002');
+% endDate = datenum('12-31-2017');
+% dates_v = linspace(startDate,endDate,size(money,1));
+% 
+% 
+% figure;
+% hold all;
+% plot(dates_v, vfinx_daily(1,1:size(money,1)));
+% plot(dates_v, money, 'g');
+% plot(dates_v, money_opt, 'k');
+% datetick('x', 'yyyy');
+
 toc
 
 

@@ -40,7 +40,6 @@ function [chi,M]=chiAlloc( sR,rF, r1, r2)
        
     money1(i)=sum(money_temp);
     end
-    money1
     
     % Finding top 10
     [M I]=sort(money1,'descend');
