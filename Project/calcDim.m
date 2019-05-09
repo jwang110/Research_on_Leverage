@@ -10,7 +10,7 @@ for i=2:length(eigenvalues)
 end
 
 [max_diff, max_index] = max(log_diff);
-dim = max_index
+dim = max_index;
 plot(eigenvalues);
 
 
