@@ -95,6 +95,10 @@ title('sharpe ratio');
 
 
 %% Finding Best Chi
+
+
+
+
 riskFree=mu_si_an;
 sR=sharp_ratio;
 index = 1; 
@@ -126,7 +130,6 @@ title('rolling quarter chi');
 
 
 %% Least Squares Fit
-
 
 
 % for i=[1:numyear]
