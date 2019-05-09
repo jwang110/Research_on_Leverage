@@ -95,6 +95,34 @@ title('sharpe ratio');
 
 
 %% Finding Best Chi
+riskFree=mu_si_an;
+sR=sharp_ratio;
+index = 1; 
+for i=[1:numyear]
+    for j=1:per
+            if(i==numyear && j==per)
+                break;
+            end
+            dailyR1=data{1,i}{1,j};
+            i_2 = i;
+            j_2 = j+1;
+            if(j==4)
+               i_2 = i_2+1; 
+               j_2 = 1;
+            end
+            dailyR2=data{1,i_2}{1,j_2};
+            rF=[riskFree(index), riskFree(index+1)]; 
+            sR_temp=sR(index);
+            [chi_temp,money_temp]=chiAlloc(sR_temp, rF, dailyR1,dailyR2);
+            chiOpt(index)=chi_temp;
+            moneyMaxChi(index)=money_temp;  
+            index = index+1;
+    end
+end
+
+figure;
+plot(chiOpt);
+title('rolling quarter chi');
 
 
 %% Least Squares Fit
