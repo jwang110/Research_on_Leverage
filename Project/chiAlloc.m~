@@ -29,24 +29,23 @@ function [chi,M]=chiAlloc( sR,rF, r1, r2)
     
     
     % PART 3: Maximizing the return
-    money1=ones(length(chi1),1);
-    for i=1:length(chi1)
-        
-       money_temp=[];
-       for j=1:length(rTilda1)
-         temp=log(1+rF(1)/360)+log(1+(rTilda1(j,:)*f(:,i)));
-         money_temp=[money_temp; temp];
-       end
-       
-    money1(i)=sum(money_temp);
-    end
-    money1
-    
+%     money1=ones(length(chi1),1);
+%     for i=1:length(chi1)
+%         
+%        money_temp=[];
+%        for j=1:length(rTilda1)
+%          temp=log(1+rF(1)/360)+log(1+(rTilda1(j,:)*f(:,i)));
+%          money_temp=[money_temp; temp];
+%        end
+%        
+%     money1(i)=sum(money_temp);
+%     end
+%     
     % Finding top 10
-    [M I]=sort(money1,'descend');
-    M=M(1:10);
-    I=I(1:10);
-    
+%     [M I]=sort(money1,'descend');
+%     M=M(1:8);
+%     I=I(1:8);
+%     
     
     
     
@@ -67,11 +66,10 @@ function [chi,M]=chiAlloc( sR,rF, r1, r2)
     
     % PART 5: Comparing the moneys
     
-    for i=1:length(I)
-       avg(i)=( money1(I(i))+money2(I(i)) )/2;
-    end
-    [A L]=max(avg);
-    I(L);
+%     for i=1:length(I)
+%        avg(i)=(money2(I(i)));
+%     end
+%     [A L]=max(avg);
     %I(L) is the index of chi
     chi=chi1(I(L));
     M=money1(I(L));
