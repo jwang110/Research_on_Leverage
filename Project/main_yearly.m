@@ -196,27 +196,6 @@ disp("error combined " + best_error);
 disp("rf error " + rf_error);
 disp("other error " + other_error);
 
-% % % figure;
-% % % hold all;
-% % % 
-% % % omega_best_minus = omega_best(:,2:end);
-% % % [coef, error] = omegaCoef(omega_best_minus, chiOpt);
-% % % plot(year, omega_best_minus*coef);
-% % % disp(strcat(bestLabels{1}, num2str(error)));
-% % %    
-% % % for i =2:length(best)-1
-% % %     omega_best_minus = [omega_best(:,1:i-2), omega_best(:,i+1:end)];
-% % %     [coef, error] = omegaCoef(omega_best_minus, chiOpt);
-% % %     plot(year, omega_best_minus*coef);
-% % %     disp(strcat(bestLabels{i}, " ", num2str(error)));
-% % % end
-% % % omega_best_minus = omega_best(:,1:end-1);
-% % % [coef, error] = omegaCoef(omega_best_minus, chiOpt);
-% % % plot(year, omega_best_minus*coef);
-% % % disp(strcat(bestLabels{i+1}, " ", num2str(error)));
-% % % 
-
-
 if(plot_chis)
     figure;
     hold on;
