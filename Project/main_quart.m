@@ -62,7 +62,7 @@ end
 figure;
 plot(dates, dim);
 datetick('x', 'yyyy');
-title('dimensionality 1 year');
+title('dimensionality log diff', 'fontSize', font);
 
 
 %% (3) Proximity
@@ -79,7 +79,7 @@ end
 figure;
 plot(dates, prox);
 datetick('x', 'yyyy');
-title('proximity of vfinx 1 year');
+title('proximity of vfinx to efficient fronter', 'fontSize', font);
 
 
 %% (6) Sharp Ratio
