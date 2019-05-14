@@ -1,3 +1,4 @@
+clear all;
 numyear = 17;
 plotting = false;
 
@@ -88,15 +89,31 @@ dates_other = linspace(startDate_other,endDate_other,numyear*12);
 
 vix_monthly = zeros(numyear*12, 1);
 
-data_vars = [SP500(:,3), BCI(:,3), CCI(:,3), CLI(:,3), length_unemployment(:,3), unemployment(:,3), total_consumer_credit(:,3), mu_si_month(:,1), dim', prox', sharp_ratio, ome_sharp, ome_quarter, vix_avg(:,1)];
-titles = {    'SP 500', 'BCI',     'CCI',   'CLI',     'length_unemployment',   'unemployment',     'total consumer credit',    'rf',  'dimensionality', 'proximity', 'sharp', 'ome sharp', 'leverage', 'vix'};
+%data_vars = [SP500(:,3), BCI(:,3), CCI(:,3), CLI(:,3), length_unemployment(:,3), unemployment(:,3), total_consumer_credit(:,3), mu_si_month(:,1), dim', prox', sharp_ratio, ome_sharp, ome_quarter, vix_avg(:,1)];
+%titles = {    'SP 500', 'BCI',     'CCI',   'CLI',     'length_unemployment',   'unemployment',     'total consumer credit',    'rf',  'dimensionality', 'proximity', 'sharp', 'ome sharp', 'leverage', 'vix'};
+%titles = {'SP 500', 'BCI',     'CCI',   'CLI',     'length_unemployment',   'unemployment',     'total consumer credit',    'rf',  'dimensionality', 'proximity', 'sharp', 'ome sharp', 'leverage','delta BCI',     'delta CCI',   'delta CLI',     'delta length_unemployment',   'delta unemployment',     'delta total consumer credit',    'delta rf',  'delta dimensionality', 'delta proximity', 'delta sharp', 'delta ome sharp', 'delta leverage', 'vix'};
+
+
+data_vars = [SP500(:,3), BCI(:,3), CCI(:,3), CLI(:,3), total_consumer_credit(:,3), mu_si_month(:,1), dim', prox', ome_sharp, ome_quarter, vix_avg(:,1)];
+titles = {    'SP 500', 'BCI',     'CCI',   'CLI',     'total consumer credit',    'rf',  'dimensionality', 'proximity', 'ome sharp', 'leverage', 'vix'};
+titles = {titles{1:end-1}, 'delta BCI',     'delta CCI',   'delta CLI',     'delta total consumer credit',    'delta rf',  'delta dimensionality', 'delta proximity', 'delta ome sharp', 'delta leverage', 'vix'};
+
+num_var = size(data_vars,2);
+
+
+delta_vars = zeros(size(data_vars,1), num_var-2);
+for i=2:size(data_vars,1)
+    delta_vars(i,:) = data_vars(i,2:num_var-1) - data_vars(i-1,2:num_var-1);
+end
+
+data_vars = [data_vars(:,1:num_var-1), delta_vars, data_vars(:,num_var)];
 
 
 num_var = size(data_vars,2);
+
 correlation = zeros(num_var);
 xcorrelation = zeros(num_var);
 xcorrelationlags = zeros(num_var);
-
 corr_combined = zeros(num_var);
 for i = 1:num_var
     for j = 1:num_var

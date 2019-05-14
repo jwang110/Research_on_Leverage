@@ -1,11 +1,11 @@
 load('random_factors_2002.mat');
-data = [CLI(:,3), CCI(:,3), BCI(:,3)];
+data = [CLI(:,3), CCI(:,3), BCI(:,3), total_consumer_credit(:,3)];
 years = CCI(:,2);
 
 index_yearly = 1;
 which_year = 2002;
 numyear = 17;
-data_avg = zeros(numyear, 3);
+data_avg = zeros(numyear, size(data,2));
 days_in_year = 1;
 sum_year = 0;
 index_month = 1;
@@ -24,4 +24,12 @@ end
 
 us_debt = [us_debt_percent(:,2); 0];
 data_avg = [data_avg, inflation(:,2), us_debt];
-factors_label = {'CLI', 'CCI', 'BCI', 'inflation', 'us debt'};
+
+delta_data = zeros(size(data_avg,1), size(data_avg,2));
+for i=2:size(data_avg,1)
+    delta_data(i-1,:) = data_avg(i,:)-data_avg(i-1, :);
+end
+
+data_avg = [data_avg, delta_data];
+
+factors_label = {'CLI', 'CCI', 'BCI', 'total consumer credit', 'inflation', 'us debt','delta CLI', 'delta CCI', 'delta BCI', 'delta credit', 'delta inflation', 'delta us debt'};

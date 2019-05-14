@@ -137,12 +137,12 @@ end
 % % %leverage
 % % ome_quarter;
 
-load('otherfactors_yearly.mat');
+load('otherfactors_yearly_delta.mat');
 
 omega_rf_temp = [dim', prox', riskFree, ome_sharp, ome_quarter];
 omega_rf = omega_rf_temp(1:end-1, :);
 
-omega_other = data_avg(1:end-1,1:3);
+omega_other = data_avg(1:end-1,:);
 
 [rf_coef, rf_error] = omegaCoef(omega_rf, chiOpt);
 [other_coef, other_error] = omegaCoef(omega_other, chiOpt);
@@ -152,17 +152,64 @@ allOmega_ideas = allOmega_ideas_temp(1:end-1, :);
 omega_labels = {'dim', 'prox', 'rf', 'sharp', 'leverage', factors_label{:}};
 
 
-
+%correlation = zeros(1, size(allOmega_ideas,2));
 for i=1:size(allOmega_ideas,2)
     [coef, error] = omegaCoef(allOmega_ideas(:,i), chiOpt);
-    %disp("error " + omega_labels(i) + error);
+    corr = corrcoef(allOmega_ideas(:,i), chiOpt);
+    %correlation(i) = corr(1,2);
+    %disp("corr " + omega_labels(i) + corr(1,2));
 end
 
-omega_best = [allOmega_ideas(:,5), allOmega_ideas(:,6), allOmega_ideas(:,7), allOmega_ideas(:,8), allOmega_ideas(:,10)];
+corr_size = size(allOmega_ideas,2)+1;
+correlation = zeros(corr_size);
+corrComp = [chiOpt', allOmega_ideas];
+for i=1:corr_size
+    for j=1:corr_size
+        corr = corrcoef(corrComp(:,i), corrComp(:,j));
+        correlation(i,j) = corr(1,2);
+    end
+end
+heatmap_labels = {'chiOpt', omega_labels{:}};
+figure;
+heatmap(heatmap_labels, heatmap_labels, abs(correlation));
+
+%best = CCI, dim, rf, leverage
+
+best = [7, 1, 3, 5];
+omega_best = [];
+best = sort(best);
+bestLabels = {};
+for i=1:length(best)
+    omega_best = [omega_best, allOmega_ideas(:,best(i))];
+    bestLabels = {bestLabels{:}, omega_labels{best(i)}};
+    %disp(omega_labels{best(i)});
+end
+%omega_best = [allOmega_ideas(:,5), allOmega_ideas(:,6), allOmega_ideas(:,7), allOmega_ideas(:,8), allOmega_ideas(:,10)];
 [best_coef, best_error] = omegaCoef(omega_best, chiOpt);
 disp("error combined " + best_error);
 disp("rf error " + rf_error);
 disp("other error " + other_error);
+
+% % % figure;
+% % % hold all;
+% % % 
+% % % omega_best_minus = omega_best(:,2:end);
+% % % [coef, error] = omegaCoef(omega_best_minus, chiOpt);
+% % % plot(year, omega_best_minus*coef);
+% % % disp(strcat(bestLabels{1}, num2str(error)));
+% % %    
+% % % for i =2:length(best)-1
+% % %     omega_best_minus = [omega_best(:,1:i-2), omega_best(:,i+1:end)];
+% % %     [coef, error] = omegaCoef(omega_best_minus, chiOpt);
+% % %     plot(year, omega_best_minus*coef);
+% % %     disp(strcat(bestLabels{i}, " ", num2str(error)));
+% % % end
+% % % omega_best_minus = omega_best(:,1:end-1);
+% % % [coef, error] = omegaCoef(omega_best_minus, chiOpt);
+% % % plot(year, omega_best_minus*coef);
+% % % disp(strcat(bestLabels{i+1}, " ", num2str(error)));
+% % % 
+
 
 if(plot_chis)
     figure;
