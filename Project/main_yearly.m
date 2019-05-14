@@ -140,6 +140,12 @@ end
 load('otherfactors_yearly_delta.mat');
 
 omega_rf_temp = [dim', prox', riskFree, ome_sharp, ome_quarter];
+
+deltas = zeros(size(omega_rf_temp));
+for i=2:size(omega_rf_temp,2)
+    deltas(i-1,:) = omega_rf_temp(i,:) - omega_rf_temp(i-1,:);
+end
+omega_rf_temp = [omega_rf_temp, deltas];
 omega_rf = omega_rf_temp(1:end-1, :);
 
 omega_other = data_avg(1:end-1,:);
@@ -147,9 +153,9 @@ omega_other = data_avg(1:end-1,:);
 [rf_coef, rf_error] = omegaCoef(omega_rf, chiOpt);
 [other_coef, other_error] = omegaCoef(omega_other, chiOpt);
 
-allOmega_ideas_temp = [dim', prox', riskFree, ome_sharp, ome_quarter, data_avg(1:end,:)];
+allOmega_ideas_temp = [omega_rf_temp, data_avg(1:end,:)];
 allOmega_ideas = allOmega_ideas_temp(1:end-1, :);
-omega_labels = {'dim', 'prox', 'rf', 'sharp', 'leverage', factors_label{:}};
+omega_labels = {'dim', 'prox', 'rf', 'sharp', 'leverage', 'delta dim', 'delta prox', 'delta rf', 'delta sharp', 'delta leverage', factors_label{:}};
 
 
 %correlation = zeros(1, size(allOmega_ideas,2));
@@ -175,7 +181,7 @@ heatmap(heatmap_labels, heatmap_labels, abs(correlation));
 
 %best = CCI, dim, rf, leverage
 
-best = [7, 1, 3, 5];
+best = [12, 1, 3, 5];
 omega_best = [];
 best = sort(best);
 bestLabels = {};
