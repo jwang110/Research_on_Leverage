@@ -7,6 +7,15 @@ startDateString = strcat('1-01-',year);
 %filename = 'data_quart_2002.mat';
 load(filename);
 
+
+plot_chi_sharp = false;
+plot_sharp = false;
+plot_leverage = false;
+plot_dim = false;
+plot_prox = false;
+plot_chis = true;
+
+
 numyear=size(data,2);
 s=size(data{1,1},2);
 font=20;
@@ -34,11 +43,14 @@ for i=1:numyear
     sharp_ratio=[sharp_ratio;sharp];
     ome_sharp=[ome_sharp;omega_sharp];
 end
-figure;
-hold on;
-plot(dates,ome_quarter);
-title('leverage');
-datetick('x', 'yyyy');
+
+if(plot_leverage)
+    figure;
+    hold on;
+    plot(dates,ome_quarter);
+    title('leverage');
+    datetick('x', 'yyyy');
+end
 % reshape the leverage ratio and the sharpe ratio
 % ome_quarter_reshape=reshape(ome_quarter,[4,17]);
 %% (2) Dimensionality
@@ -47,11 +59,13 @@ dim = zeros(1,numyear);
 for i = 1:numyear
     dim(1, i) = calcDim(data{1,i}, 1/9);
 end
-figure;
-plot(dates, dim);
-datetick('x', 'yyyy');
-title('dimensionality 1 year');
 
+if(plot_dim)
+    figure;
+    plot(dates, dim);
+    datetick('x', 'yyyy');
+    title('dimensionality 1 year');
+end
 
 %% (3) Proximity
 
@@ -60,18 +74,21 @@ for i=1:numyear
         temp = calcProx(var{1,i},m{1,i}',s);
         prox(1, i) = temp(1,1);
 end
-figure;
-plot(dates, prox);
-datetick('x', 'yyyy');
-title('proximity of vfinx 1 year');
-
+if(plot_prox)
+    figure;
+    plot(dates, prox);
+    datetick('x', 'yyyy');
+    title('proximity of vfinx 1 year');
+end
 %% (6) Sharp Ratio
 % calculated the shrp ratio in the leverage section
-figure
-hold all;
-plot(dates,sharp_ratio)
-datetick('x', 'yyyy');
-title('sharpe ratio');
+if(plot_sharp)
+    figure
+    hold all;
+    plot(dates,sharp_ratio)
+    datetick('x', 'yyyy');
+    title('sharpe ratio');
+end
 % reshape the sharpe ratio
 % sharpe_ratio_reshape=reshape(sharp_ratio,[4,17]);
 %% Finding Best Chi
@@ -89,13 +106,16 @@ end
 
 %% Plotting
 % build the matrix with the omega
-figure
+
 year=2002:2017;
-plot(year,chiOpt,'b')
-hold on
-plot(year,sharp_ratio(1:16),'r')
-title('Optimal Caution Coeff and Sharp Ratio', 'fontSize', 18)
-legend('Optimal Caution Coeff', 'Sharpe Ratio')
+if(plot_chi_sharp)
+    figure 
+    plot(year,chiOpt,'b')
+    hold on
+    plot(year,sharp_ratio(1:16),'r')
+    title('Optimal Caution Coeff and Sharp Ratio', 'fontSize', 18)
+    legend('Optimal Caution Coeff', 'Sharpe Ratio')
+end
 % % frac=chiOpt(1:16)/sharp_ratio(1:16)
 % % plot(year,frac)
 % frac=[];
@@ -117,25 +137,43 @@ legend('Optimal Caution Coeff', 'Sharpe Ratio')
 % % %leverage
 % % ome_quarter;
 
+load('otherfactors_yearly.mat');
+
 omega_rf_temp = [dim', prox', riskFree, ome_sharp, ome_quarter];
 omega_rf = omega_rf_temp(1:end-1, :);
 
-omega_temp_no_dim = [prox', riskFree, ome_sharp, ome_quarter];
-omega_no_dim = omega_temp_no_dim(1:end-1, :); 
-
+omega_other = data_avg(1:end-1,1:3);
 
 [rf_coef, rf_error] = omegaCoef(omega_rf, chiOpt);
-[no_dim_coef, no_dim_error] = omegaCoef(omega_no_dim, chiOpt);
+[other_coef, other_error] = omegaCoef(omega_other, chiOpt);
 
-%disp("rf error" + rf_error);
-%disp("no dim error" + no_dim_error);
+allOmega_ideas_temp = [dim', prox', riskFree, ome_sharp, ome_quarter, data_avg(1:end,:)];
+allOmega_ideas = allOmega_ideas_temp(1:end-1, :);
+omega_labels = {'dim', 'prox', 'rf', 'sharp', 'leverage', factors_label{:}};
 
 
-figure;
-hold on;
-plot(year,chiOpt,'b');
-plot(year, omega_rf*rf_coef, 'r');
-plot(year, omega_no_dim*no_dim_coef, 'g');
+
+for i=1:size(allOmega_ideas,2)
+    [coef, error] = omegaCoef(allOmega_ideas(:,i), chiOpt);
+    %disp("error " + omega_labels(i) + error);
+end
+
+omega_best = [allOmega_ideas(:,5), allOmega_ideas(:,6), allOmega_ideas(:,7), allOmega_ideas(:,8), allOmega_ideas(:,10)];
+[best_coef, best_error] = omegaCoef(omega_best, chiOpt);
+disp("error combined " + best_error);
+disp("rf error " + rf_error);
+disp("other error " + other_error);
+
+if(plot_chis)
+    figure;
+    hold on;
+    plot(year,chiOpt,'b');
+    plot(year, omega_rf*rf_coef, 'r');
+    plot(year, omega_other*other_coef, 'g');
+    plot(year, omega_best*best_coef, 'k');
+    title('chi opt and various omega chis');
+    legend('opt', 'orginal', 'from other factors', 'combo');
+end
 
 % omega = omega_rf;
 % coef = rf_coef;
