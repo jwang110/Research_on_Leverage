@@ -90,11 +90,12 @@ end
 %% Plotting
 % build the matrix with the omega
 figure
-year=1:16;
+year=2002:2017;
 plot(year,chiOpt,'b')
 hold on
 plot(year,sharp_ratio(1:16),'r')
-title('comparison sharpe and chi money 2 only 8 max')
+title('Optimal Caution Coeff and Sharp Ratio', 'fontSize', 18)
+legend('Optimal Caution Coeff', 'Sharpe Ratio')
 % % frac=chiOpt(1:16)/sharp_ratio(1:16)
 % % plot(year,frac)
 % frac=[];
@@ -126,8 +127,8 @@ omega_no_dim = omega_temp_no_dim(1:end-1, :);
 [rf_coef, rf_error] = omegaCoef(omega_rf, chiOpt);
 [no_dim_coef, no_dim_error] = omegaCoef(omega_no_dim, chiOpt);
 
-disp("rf error" + rf_error);
-disp("no dim error" + no_dim_error);
+%disp("rf error" + rf_error);
+%disp("no dim error" + no_dim_error);
 
 
 figure;
