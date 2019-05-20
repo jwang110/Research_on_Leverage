@@ -1,6 +1,6 @@
 clear all;
 numyear = 17;
-plotting = false;
+plotting = true;
 
 %% rf as monthly
 load('annual_rate_shifting_quarterly.mat');

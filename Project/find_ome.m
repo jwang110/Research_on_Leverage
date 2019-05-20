@@ -55,7 +55,7 @@ end
 ome_sharp=[];
 for i=1:length(sharp)
     if sharp>0
-        ome_sharp=[ome_sharp;sharp/(1+sharp)];
+        ome_sharp=[ome_sharp;sharp^2/(1+sharp^2)];
     else
         ome_sharp=[ome_sharp;0];
     end

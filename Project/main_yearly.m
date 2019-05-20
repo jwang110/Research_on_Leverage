@@ -145,15 +145,16 @@ deltas = zeros(size(omega_rf_temp));
 for i=2:size(omega_rf_temp,2)
     deltas(i-1,:) = omega_rf_temp(i,:) - omega_rf_temp(i-1,:);
 end
-omega_rf_temp = [omega_rf_temp, deltas];
-omega_rf = omega_rf_temp(1:end-1, :);
 
+omega_rf_temp_delta = [omega_rf_temp, deltas];
+omega_rf_delta = omega_rf_temp_delta(1:end-1, :);
+omega_rf = omega_rf_temp(1:end-1,:);
 omega_other = data_avg(1:end-1,:);
 
 [rf_coef, rf_error] = omegaCoef(omega_rf, chiOpt);
 [other_coef, other_error] = omegaCoef(omega_other, chiOpt);
 
-allOmega_ideas_temp = [omega_rf_temp, data_avg(1:end,:)];
+allOmega_ideas_temp = [omega_rf_temp_delta, data_avg(1:end,:)];
 allOmega_ideas = allOmega_ideas_temp(1:end-1, :);
 omega_labels = {'dim', 'prox', 'rf', 'sharp', 'leverage', 'delta dim', 'delta prox', 'delta rf', 'delta sharp', 'delta leverage', factors_label{:}};
 
@@ -175,13 +176,13 @@ for i=1:corr_size
         correlation(i,j) = corr(1,2);
     end
 end
-heatmap_labels = {'chiOpt', omega_labels{:}};
-figure;
-heatmap(heatmap_labels, heatmap_labels, abs(correlation));
+% heatmap_labels = {'chiOpt', omega_labels{:}};
+% figure;
+% heatmap(heatmap_labels, heatmap_labels, abs(correlation));
 
 %best = CCI, dim, rf, leverage
 
-best = [12, 1, 3, 5];
+best = [12, 1, 3, 4];
 omega_best = [];
 best = sort(best);
 bestLabels = {};
@@ -192,19 +193,21 @@ for i=1:length(best)
 end
 %omega_best = [allOmega_ideas(:,5), allOmega_ideas(:,6), allOmega_ideas(:,7), allOmega_ideas(:,8), allOmega_ideas(:,10)];
 [best_coef, best_error] = omegaCoef(omega_best, chiOpt);
-disp('error combined ' + best_error);
-disp('rf error ' + rf_error);
-disp('other error ' + other_error);
+disp(strcat('error combined ', num2str(best_error)));
+disp(strcat('rf error ', num2str(rf_error)));
+disp(strcat('other error ', num2str(other_error)));
 
 if(plot_chis)
     figure;
     hold on;
     plot(year,chiOpt,'b');
     plot(year, omega_rf*rf_coef, 'r');
-    plot(year, omega_other*other_coef, 'g');
+    %plot(year, omega_other*other_coef, 'g');
     plot(year, omega_best*best_coef, 'k');
-    title('chi opt and various omega chis');
-    legend('opt', 'orginal', 'from other factors', 'combo');
+    title('chi opt and various omega chis', 'fontSize', font);
+    legend('opt', 'orginal', 'best');
+    xlabel('Year');
+   
 end
 
 % omega = omega_rf;
